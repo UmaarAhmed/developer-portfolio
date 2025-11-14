@@ -6,19 +6,46 @@ export const skillsData = [
   'React',
   'Next JS',
   'Tailwind',
+  'Bootstrap',
+  'MaterialUI',
+  'Angular',
+  'Vue',
+  'Nuxt JS',
+  'Svelte',
+    // Backend
+  'Node JS',
+  'Python',
+  'PHP',
+  'Go',
+  'Django',
+  'Strapi',
+  '.NET',
+  // Databases
   'MongoDB',
   'MySQL',
   'PostgreSQL',
+  'PostgreSQL',
+  'Prisma',
+  // Tools & Cloud
   'Git',
   'AWS',
-  'Bootstrap',
   'Docker',
-  'Go',
-  'Figma',
-  'Firebase',
-  'MaterialUI',
   'Nginx',
-  'Strapi'
+  'Firebase',
+  // CMS / Platforms
+  'WordPress',
+  'Webix',
+  
+  // Design & Multimedia
+  'Figma',
+  'Adobe XD',
+  'Photoshop',
+  'Illustrator',
+  'Blender',
+  'Canva'
+
+  
+  
 ]
 
 // Choose your skills from below. Make sure it's in the same format and spelled correctly.

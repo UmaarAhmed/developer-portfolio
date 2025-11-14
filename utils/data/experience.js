@@ -7,7 +7,7 @@ export const experiences = [
   },
    {
     id: 2,
-    title: "FullStack Application developer",
+    title: "FullStack Website developer",
     company: "Saad Enterprises.",
     duration: "(Jan 2018 - Present)"
   },
