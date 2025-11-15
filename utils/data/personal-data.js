@@ -9,10 +9,10 @@ export const personalData = {
   github: 'https://github.com/UmaarAhmed',
   facebook: 'https://www.facebook.com/abusaid.riyaz/',
   linkedIn: 'https://www.linkedin.com/in/umaar-ahmed-a3b252266/',
-  twitter: 'https://twitter.com/said7388',
+  twitter: 'https://x.com/umaarAhmedDev',
   stackOverflow: 'https://stackoverflow.com/users/16840768/abu-said',
   leetcode: "https://leetcode.com/said3812/",
   devUsername: "umaarahmed",
-  resume: "https://drive.google.com/file/d/1eyutpKFFhJ9X-qpQGKhUNnVRkB5Wer00/view?usp=sharing"
+  resume: "https://drive.google.com/file/d/1v44BiwJblwmM5GoZnpJPlxGFJaOzhHA5/view?usp=drive_link"
 }
 

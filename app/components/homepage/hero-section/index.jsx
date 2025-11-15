@@ -4,6 +4,8 @@
 import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 import Link from "next/link";
+import { BsTwitter } from "react-icons/bs";
+import { SiDevdotto } from "react-icons/si";
 import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { FaArrowRight } from "react-icons/fa";
 import { RiContactsFill } from "react-icons/ri";
@@ -78,22 +80,51 @@ function HeroSection() {
 
 
           <div className="my-12 flex items-center gap-5">
-            <Link
-              href={personalData.github}
-              target="_blank"
-              className="transition-all text-pink-500 hover:scale-125 duration-300"
-            >
-              <BsGithub size={30} />
-            </Link>
+  {/* GitHub */}
+  <Link
+    href={personalData.github}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="transition-all text-pink-500 hover:scale-125 duration-300"
+    aria-label="GitHub"
+  >
+    <BsGithub size={30} />
+  </Link>
 
-            <Link
-              href={personalData.linkedIn}
-              target="_blank"
-              className="transition-all text-pink-500 hover:scale-125 duration-300"
-            >
-              <BsLinkedin size={30} />
-            </Link>
-          </div>
+  {/* LinkedIn */}
+  <Link
+    href={personalData.linkedIn}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="transition-all text-pink-500 hover:scale-125 duration-300"
+    aria-label="LinkedIn"
+  >
+    <BsLinkedin size={30} />
+  </Link>
+
+  {/* Dev.to */}
+  <Link
+    href={`https://dev.to/${personalData.devUsername}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="transition-all text-pink-500 hover:scale-125 duration-300"
+    aria-label="Dev.to"
+  >
+    <SiDevdotto size={40} />
+  </Link>
+
+  {/* Twitter */}
+  <Link
+    href={personalData.twitter}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="transition-all text-pink-500 hover:scale-125 duration-300"
+    aria-label="Twitter"
+  >
+    <BsTwitter size={30} />
+  </Link>
+
+</div>
 
           <div className="flex items-center gap-3">
             <Link

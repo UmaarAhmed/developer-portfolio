@@ -13,7 +13,7 @@ export const skillsData = [
   'Nuxt JS',
   'Svelte',
     // Backend
-  'Node JS',
+  //'Node JS',
   'Python',
   'PHP',
   'Go',
@@ -23,7 +23,6 @@ export const skillsData = [
   // Databases
   'MongoDB',
   'MySQL',
-  'PostgreSQL',
   'PostgreSQL',
   'Prisma',
   // Tools & Cloud
