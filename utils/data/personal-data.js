@@ -2,7 +2,17 @@ export const personalData = {
   name: "Umaar Ahmed",
   profile: '/new.png',
   designation: "Full Stack Developer",
-  description: "My name is Umaar Ahmed. I am a professional and enthusiastic programmer in my daily life. I am a quick learner with a self-learning attitude. I love to learn and explore new technologies and am passionate about problem-solving. I love almost all the stacks of web application development and love to make the web more open to the world. My core skill is based on JavaScript and I love to do most of the things using JavaScript. I am available for any kind of job opportunity that suits my skills and interests.",
+description: `
+Hi, I'm Umaar Ahmed — a passionate and professional Full-Stack Developer
+specializing in website and web application development. I have a strong
+foundation in JavaScript and its ecosystem, and I love building scalable,
+high-performance digital experiences. I’m a quick learner with a 
+self-driven attitude, always exploring new technologies and solving
+challenging problems. I am available for freelance or full-time remote
+opportunities that align with my skills and expertise.
+`,
+
+
   email: 'umaarahmed03@gmail.com',
   phone: '+92 3434688216',
   address: 'Karachi Pakistan ',

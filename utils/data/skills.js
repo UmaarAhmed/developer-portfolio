@@ -8,29 +8,29 @@ export const skillsData = [
   'Tailwind',
   'Bootstrap',
   'MaterialUI',
-  'Angular',
-  'Vue',
-  'Nuxt JS',
-  'Svelte',
     // Backend
+
   //'Node JS',
   'Python',
   'PHP',
-  'Go',
   'Django',
   'Strapi',
   '.NET',
+
   // Databases
   'MongoDB',
   'MySQL',
   'PostgreSQL',
   'Prisma',
+  'Firebase',
+
   // Tools & Cloud
   'Git',
+  'Vercel',
   'AWS',
   'Docker',
   'Nginx',
-  'Firebase',
+  
   // CMS / Platforms
   'WordPress',
   'Webix',
@@ -39,9 +39,7 @@ export const skillsData = [
   'Figma',
   'Adobe XD',
   'Photoshop',
-  'Illustrator',
-  'Blender',
-  'Canva'
+  'Canva',
 
   
   

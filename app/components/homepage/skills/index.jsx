@@ -83,28 +83,28 @@ function Skills() {
           <div>
             <h2 className="text-2xl font-semibold text-violet-400 mb-4">Backend</h2>
             <p className="text-white/80 leading-7">
-              Node.js, PHP, Python, Go, Django, FastAPI, Strapi, Prisma
+              Node.js, Express.js, PHP, Python, Django, Strapi, .NET
             </p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold text-violet-400 mb-4">Databases</h2>
             <p className="text-white/80 leading-7">
-              MongoDB, MySQL, PostgreSQL, SQLite, MemSQL, SQLAlchemy
+              MongoDB, Firebase, MySQL, PostgreSQL, SQLite, Prisma
             </p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold text-violet-400 mb-4">Tools & Cloud</h2>
             <p className="text-white/80 leading-7">
-              Git, Docker, AWS, GCP, Nginx, Firebase, Figma
+              Git & GitHub, Docker, AWS, Nginx, Vercel, Netlify
             </p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold text-violet-400 mb-4">Design Tools</h2>
             <p className="text-white/80 leading-7">
-              Adobe XD, Photoshop, Illustrator, After Effects, Blender, Canva
+              Figma, Adobe XD, Photoshop, Illustrator, After Effects, Canva
             </p>
           </div>
 

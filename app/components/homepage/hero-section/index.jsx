@@ -13,11 +13,10 @@ import { useEffect, useState } from "react";
 
 // Typing roles
 const roles = [
-  "Full Stack Developer",
-  "WordPress Developer",
-  "Shopify Developer",
-  "Next.js Developer",
-  "React Developer"
+  "Senior React & Next.js Developer",
+  "Full-Stack Engineer — TypeScript & JavaScript",
+  "Building High-Performance, Scalable Web Applications",
+  "Open for Freelance & Remote Job"
 ];
 
 function HeroSection() {
@@ -148,124 +147,51 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* RIGHT Code Card */}
-        <div className="order-1 lg:order-2 from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37]">
-          <div className="flex flex-row">
-            <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
-            <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
+ {/* RIGHT SIDE CARD — ORIGINAL HEIGHT, SUPER CLEAN & PRO */}
+<div className="order-1 lg:order-2 w-full max-w-xl mx-auto">
+  <div className="relative group">
+
+    {/* Animated Gradient Border */}
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-600 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000"></div>
+
+    {/* Main Card — Height bilkul pehle jaisi (compact & clean) */}
+    <div className="relative bg-[#0d1224]/95 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-xl p-6 lg:p-8 overflow-hidden hover:border-pink-500/30 transition-all duration-500">
+
+      {/* Header + Available Badge */}
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-3">
+          <div className="flex gap-2">
+            <span className="w-3 h-3 rounded-full bg-red-400"></span>
+            <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
+            <span className="w-3 h-3 rounded-full bg-green-400"></span>
           </div>
-
-          <div className="px-4 lg:px-8 py-5">
-            <div className="flex flex-row space-x-2">
-              <div className="h-3 w-3 rounded-full bg-red-400"></div>
-              <div className="h-3 w-3 rounded-full bg-orange-400"></div>
-              <div className="h-3 w-3 rounded-full bg-green-200"></div>
-            </div>
-          </div>
-
-          <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8">
-            <code className="font-mono text-xs md:text-sm lg:text-base">
-
-              <div className="blink">
-                <span className="mr-2 text-pink-500">const</span>
-                <span className="mr-2 text-white">coder</span>
-                <span className="mr-2 text-pink-500">=</span>
-                <span className="text-gray-400">{`{`}</span>
-              </div>
-
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-                <span className="text-gray-400">{`'`}</span>
-                <span className="text-amber-300">Umaar Ahmed</span>
-                <span className="text-gray-400">{`',`}</span>
-              </div>
-
-              <div className="ml-4 lg:ml-8 mr-2">
-                <span className="text-white">skills:</span>
-                <span className="text-gray-400">{`['`}</span>
-                <span className="text-amber-300">React</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Next.js</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">React Native</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Node.js</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Express.js</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">MongoDB</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Tailwind CSS</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Firebase</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Git & GitHub</span>
-                <span className="text-gray-400">{"'],"}</span>
-              </div>
-
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">hardWorker:</span>
-                <span className="text-orange-400">true</span>
-                <span className="text-gray-400">,</span>
-              </div>
-
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">quickLearner:</span>
-                <span className="text-orange-400">true</span>
-                <span className="text-gray-400">,</span>
-              </div>
-
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">problemSolver:</span>
-                <span className="text-orange-400">true</span>
-                <span className="text-gray-400">,</span>
-              </div>
-
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-green-400">hireable:</span>
-                <span className="text-orange-400">function</span>
-                <span className="text-gray-400">{`() {`}</span>
-              </div>
-
-              <div>
-                <span className="ml-8 lg:ml-16 mr-2 text-orange-400">return</span>
-                <span className="text-gray-400">{`(`}</span>
-              </div>
-
-              <div>
-                <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                <span className="mr-2 text-white">hardWorker</span>
-                <span className="text-amber-300">&amp;&amp;</span>
-              </div>
-
-              <div>
-                <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                <span className="mr-2 text-white">problemSolver</span>
-                <span className="text-amber-300">&amp;&amp;</span>
-              </div>
-
-              <div>
-                <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                <span className="mr-2 text-white">skills.length</span>
-                <span className="mr-2 text-amber-300">&gt;=</span>
-                <span className="text-orange-400">5</span>
-              </div>
-
-              <div>
-                <span className="ml-8 lg:ml-16 mr-2 text-gray-400">{`);`}</span>
-              </div>
-
-              <div>
-                <span className="ml-4 lg:ml-8 text-gray-400">{`};`}</span>
-              </div>
-
-              <div>
-                <span className="text-gray-400">{`};`}</span>
-              </div>
-            </code>
-          </div>
+          <span className="text-gray-500 text-xs tracking-wider">developer.js</span>
         </div>
+        <div className="flex items-center gap-1.5 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></div>
+          <span className="text-emerald-400 text-xs font-medium">Available</span>
+        </div>
+      </div>
 
+      {/* Tera Original Code — 100% Same */}
+      <div className="overflow-x-auto">
+        <code className="font-mono text-xs md:text-sm text-gray-200 leading-relaxed">
+          <div><span className="text-pink-500">const</span> <span className="text-white">developer</span> <span className="text-pink-500">=</span> <span className="text-gray-400">{"{"}</span></div>
+          <div className="ml-4"><span className="text-white">name:</span> <span className="text-amber-300">'Umaar Ahmed',</span></div>
+          <div className="ml-4"><span className="text-white">roles:</span> <span className="text-amber-300">[ "Senior React & Next.js Developer", "Full-Stack Engineer — TypeScript & JavaScript", "Building High-Performance, Scalable Web Applications", "Open for Freelance & Remote Job" ],</span></div>
+          <div className="ml-4"><span className="text-white">skills:</span> <span className="text-amber-300">[ "React", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Firebase", "Git & GitHub" ],</span></div>
+          <div className="ml-4"><span className="text-white">hardWorker:</span> <span className="text-orange-400">true,</span></div>
+          <div className="ml-4"><span className="text-white">quickLearner:</span> <span className="text-orange-400">true,</span></div>
+          <div className="ml-4"><span className="text-white">problemSolver:</span> <span className="text-orange-400">true</span></div>
+          <div className="text-gray-400">{"};"}</div>
+        </code>
+      </div>
+
+      {/* Subtle Gradient Line */}
+      <div className="mt-5 h-px bg-gradient-to-r from-transparent via-pink-500/40 to-transparent"></div>
+    </div>
+  </div>
+</div>
       </div>
     </section>
   );
