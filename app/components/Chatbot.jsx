@@ -31,7 +31,10 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      // YE LINE SABSE ZAROORI HAI — LOCAL + LIVE DONO CHALEGA
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+      const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
@@ -79,13 +82,11 @@ export default function Chatbot() {
         <div className="flex items-center gap-4">
           <Bot size={34} />
           <div>
-  <h3 className="font-bold text-xl">Umaar's Assistant</h3>
-  <p className="text-xs opacity-90">
-    Powered by Umaar Ahmed • 
-    Online • 
-    Ask about my skills, projects, or availability
-  </p>
-</div>
+            <h3 className="font-bold text-xl">Umaar's Assistant</h3>
+            <p className="text-xs opacity-90">
+              Powered by Umaar Ahmed • Online • Ask about my skills, projects, or availability
+            </p>
+          </div>
         </div>
         <button
           onClick={() => setIsOpen(false)}
