@@ -7,10 +7,20 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
+{/*app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
+}));*/}
+
+
+//new line
+app.use(cors({
+  origin: true,  // Sab origins allow kar de
+  credentials: true
 }));
+
+
+
 
 app.use(express.json());
 
