@@ -31,7 +31,8 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      // LIVE BACKEND — RENDER.COM (Yeh line ab live hai!)
+      const res = await fetch("https://developer-portfolio-1-l1f4.onrender.com/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
@@ -40,17 +41,17 @@ export default function Chatbot() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        throw new Error(data.error || "Failed to connect to AI");
+        throw new Error(data.error || "Bot not responding");
       }
 
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch (err) {
-      console.error("AI Connection Error:", err);
+      console.error("AI Bot Error:", err);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: `I'm currently experiencing technical difficulties.\n\nPlease try again in a moment or refresh the page.\n\nUmaar has been notified and is resolving the issue.`,
+          content: `I'm having trouble connecting right now.\n\nThe backend is live, but there might be a temporary issue.\n\nPlease try again in a few seconds — Umaar is fixing it!`,
         },
       ]);
     } finally {
@@ -63,9 +64,9 @@ export default function Chatbot() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-21 right-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-5 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center"
+        className="fixed bottom-20 right-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-5 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center"
       >
-        <Bot size={30} className="animate-pulse" />
+        <Bot size={32} className="animate-pulse" />
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-ping"></span>
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full"></span>
       </button>
@@ -79,13 +80,11 @@ export default function Chatbot() {
         <div className="flex items-center gap-4">
           <Bot size={34} />
           <div>
-  <h3 className="font-bold text-xl">Umaar's Assistant</h3>
-  <p className="text-xs opacity-90">
-    Powered by Umaar Ahmed • 
-    Online • 
-    Ask about my skills, projects, or availability
-  </p>
-</div>
+            <h3 className="font-bold text-xl">Umaar's Assistant</h3>
+            <p className="text-xs opacity-90">
+              Powered by Grok • Online • Ask anything!
+            </p>
+          </div>
         </div>
         <button
           onClick={() => setIsOpen(false)}
@@ -102,7 +101,7 @@ export default function Chatbot() {
             <Bot size={72} className="mx-auto mb-5 opacity-40" />
             <p className="text-xl font-semibold">Hello! I'm Umaar's AI Assistant</p>
             <p className="text-sm mt-3 max-w-xs mx-auto leading-relaxed">
-              Feel free to ask about his skills, projects, experience, rates, or availability for freelance work.
+              Ask about projects, skills, experience, rates, or freelance availability.
             </p>
           </div>
         )}
@@ -160,7 +159,7 @@ export default function Chatbot() {
                 <div className="w-3 h-3 bg-purple-600 rounded-full animate-bounce delay-100"></div>
                 <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-200"></div>
               </div>
-              <p className="text-sm text-gray-500 mt-3">Thinking...</p>
+              <p className="text-sm text-gray-500 mt-3">Grok is thinking...</p>
             </div>
           </div>
         )}
@@ -176,7 +175,7 @@ export default function Chatbot() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-            placeholder="Ask about projects, skills, or availability..."
+            placeholder="Ask about projects, skills, or hire me..."
             className="flex-1 px-6 py-3.5 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all shadow-sm text-gray-800 placeholder-gray-500"
             disabled={loading}
           />
