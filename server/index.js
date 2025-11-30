@@ -15,7 +15,9 @@ const app = express();
 
 //new line
 app.use(cors({
-  origin: true,  // Sab origins allow kar de
+  origin: "*",  // Sab domains allow — Vercel, localhost, sab
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
