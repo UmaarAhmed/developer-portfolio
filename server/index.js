@@ -7,11 +7,8 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}));
-
+// Sabse best → production mein sabko allow kar do (portfolio hai, koi secret nahi)
+app.use(cors()); // bas itna → sab domains se allowed
 app.use(express.json());
 
 // ENV variables
@@ -143,8 +140,8 @@ app.get("/", (req, res) => {
   res.send("Umaar ka AI Backend chal raha hai bhai!");
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, () => {
-  console.log(`Backend chal gaya → http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Backend LIVE hai → https://developer-portfolio-r3v5.onrender.com`);
 });
