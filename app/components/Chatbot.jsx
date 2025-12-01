@@ -7,8 +7,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Bot, Send, X } from "lucide-react";
 
-export default function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Chatbot({ onClose }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,12 +30,15 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      // LIVE BACKEND — RENDER.COM (Yeh line ab live hai!)
-      const res = await fetch("https://developer-portfolio-1-l1f4.onrender.com/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      });
+      // ✅ LIVE BACKEND — RENDER.COM ONLY
+      const res = await fetch(
+        "https://developer-portfolio-1-l1f4.onrender.com/api/chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage }),
+        }
+      );
 
       const data = await res.json();
 
@@ -44,14 +46,37 @@ export default function Chatbot() {
         throw new Error(data.error || "Bot not responding");
       }
 
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: data.reply },
+      ]);
+
+      /*
+      // LOCAL BACKEND — COMMENTED OUT
+      const localRes = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      const localData = await localRes.json();
+
+      if (!localRes.ok || localData.error) {
+        throw new Error(localData.error || "Bot not responding");
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: localData.reply },
+      ]);
+      */
     } catch (err) {
       console.error("AI Bot Error:", err);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: `I'm having trouble connecting right now.\n\nThe backend is live, but there might be a temporary issue.\n\nPlease try again in a few seconds — Umaar is fixing it!`,
+          content: `I'm currently experiencing technical difficulties.\n\nPlease try again in a moment or refresh the page.\n\nUmaar has been notified and is resolving the issue.`,
         },
       ]);
     } finally {
@@ -59,23 +84,9 @@ export default function Chatbot() {
     }
   };
 
-  // Floating Chat Button
-  if (!isOpen) {
-    return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-20 right-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-5 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center"
-      >
-        <Bot size={32} className="animate-pulse" />
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-ping"></span>
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full"></span>
-      </button>
-    );
-  }
-
   return (
     <div className="fixed bottom-10 right-8 w-96 h-[520px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200">
-      {/* Professional Header */}
+      {/* Header */}
       <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-5 flex justify-between items-center rounded-t-3xl">
         <div className="flex items-center gap-4">
           <Bot size={34} />
@@ -86,15 +97,12 @@ export default function Chatbot() {
             </p>
           </div>
         </div>
-        <button
-          onClick={() => setIsOpen(false)}
-          className="hover:bg-white/20 p-2 rounded-full transition"
-        >
+        <button onClick={onClose} className="hover:bg-white/20 p-2 rounded-full transition">
           <X size={22} />
         </button>
       </div>
 
-      {/* Messages Area */}
+      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-gray-50 to-white">
         {messages.length === 0 && !loading && (
           <div className="text-center text-gray-600 mt-24">
@@ -132,10 +140,7 @@ export default function Chatbot() {
                           {String(children).replace(/\n$/, "")}
                         </SyntaxHighlighter>
                       ) : (
-                        <code
-                          className="bg-gray-800 text-pink-300 px-2 py-1 rounded text-sm font-medium"
-                          {...props}
-                        >
+                        <code className="bg-gray-800 text-pink-300 px-2 py-1 rounded text-sm font-medium" {...props}>
                           {children}
                         </code>
                       );
@@ -159,7 +164,7 @@ export default function Chatbot() {
                 <div className="w-3 h-3 bg-purple-600 rounded-full animate-bounce delay-100"></div>
                 <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-200"></div>
               </div>
-              <p className="text-sm text-gray-500 mt-3">Grok is thinking...</p>
+              <p className="text-sm text-gray-500 mt-3">thinking...</p>
             </div>
           </div>
         )}
@@ -167,7 +172,7 @@ export default function Chatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area */}
+      {/* Input */}
       <div className="p-5 bg-gray-50 border-t">
         <div className="flex gap-3">
           <input

@@ -67,32 +67,32 @@ export default function Footer() {
           </div>
 
           {/* RIGHT – GitHub */}
-          <div className="flex flex-col items-center md:items-end space-y-5">
-            <div className="flex items-center gap-8">
-              <Link
-                href="https://github.com/UmaarAhmed"
-                target="_blank"
-                className="group flex items-center gap-2 text-gray-400 hover:text-[#12d8a0] transition-all"
-              >
-                <IoStar className="text-xl group-hover:scale-110" />
-                <span className="text-xs font-semibold tracking-wide">Star</span>
-              </Link>
+<div className="flex flex-col items-end md:items-end md:mr-13 space-y-5">
+  <div className="flex items-center gap-8">
+    <Link
+      href="https://github.com/UmaarAhmed"
+      target="_blank"
+      className="group flex items-center gap-2 text-gray-400 hover:text-[#12d8a0] transition-all"
+    >
+      <IoStar className="text-xl group-hover:scale-110" />
+      <span className="text-xs font-semibold tracking-wide">Star</span>
+    </Link>
 
-              <Link
-                href="https://github.com/UmaarAhmed?tab=repositories"
-                target="_blank"
-                className="group flex items-center gap-2 text-gray-400 hover:text-[#12d8a0] transition-all"
-              >
-                <CgGitFork className="text-xl group-hover:rotate-12" />
-                <span className="text-xs font-semibold tracking-wide">Fork</span>
-              </Link>
-            </div>
+    <Link
+      href="https://github.com/UmaarAhmed?tab=repositories"
+      target="_blank"
+      className="group flex items-center gap-2 text-gray-400 hover:text-[#12d8a0] transition-all"
+    >
+      <CgGitFork className="text-xl group-hover:rotate-12" />
+      <span className="text-xs font-semibold tracking-wide">Fork</span>
+    </Link>
+  </div>
 
-            <p className="text-[12px] text-gray-400 leading-relaxed text-center md:text-right">
-              Built in <span className="text-green-400 font-medium">Pakistan</span> •  
-              Serving clients worldwide 🌍
-            </p>
-          </div>
+  <p className="text-[12px] text-gray-400 leading-relaxed text-center md:text-right">
+    Built in <span className="text-green-400 font-medium">Pakistan</span> •  
+    Serving clients worldwide 🌍
+  </p>
+</div>
         </div>
 
         {/* Bottom Line */}
