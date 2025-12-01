@@ -64,30 +64,29 @@ export default function Chatbot({ onClose }) {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 w-96 max-w-[95vw] h-[520px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200 md:bottom-10 md:right-8">
+    <div className="fixed bottom-4 right-4 md:bottom-10 md:right-8 w-[94vw] max-w-lg md:w-96 h-[520px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200">
+      
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-5 flex justify-between items-center rounded-t-3xl">
-        <div className="flex items-center gap-4">
-          <Bot size={34} />
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 md:p-5 flex justify-between items-center rounded-t-3xl shrink-0">
+        <div className="flex items-center gap-3 md:gap-4">
+          <Bot size={32} className="md:size-34" />
           <div>
-            <h3 className="font-bold text-xl">Umaar's Assistant</h3>
-            <p className="text-xs opacity-90">
-              Powered by Grok • Online • Ask anything!
-            </p>
+            <h3 className="font-bold text-lg md:text-xl">Umaar's Assistant</h3>
+            <p className="text-xs opacity-90">Powered by Grok • Online • Ask anything!</p>
           </div>
         </div>
         <button onClick={onClose} className="hover:bg-white/20 p-2 rounded-full transition">
-          <X size={22} />
+          <X size={20} className="md:size-22" />
         </button>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-gray-50 to-white">
+      {/* Messages Area */}
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-5 bg-gradient-to-b from-gray-50 to-white">
         {messages.length === 0 && !loading && (
-          <div className="text-center text-gray-600 mt-24">
-            <Bot size={72} className="mx-auto mb-5 opacity-40" />
-            <p className="text-xl font-semibold">Hello! I'm Umaar's AI Assistant</p>
-            <p className="text-sm mt-3 max-w-xs mx-auto leading-relaxed">
+          <div className="text-center text-gray-600 mt-16 md:mt-24">
+            <Bot size={60} className="mx-auto mb-4 opacity-40 md:size-72" />
+            <p className="text-lg md:text-xl font-semibold">Hello! I'm Umaar's AI Assistant</p>
+            <p className="text-xs md:text-sm mt-3 max-w-xs mx-auto leading-relaxed px-4">
               Ask about projects, skills, experience, rates, or freelance availability.
             </p>
           </div>
@@ -96,7 +95,7 @@ export default function Chatbot({ onClose }) {
         {messages.map((msg, i) => (
           <div key={i} className={msg.role === "user" ? "text-right" : "text-left"}>
             <div
-              className={`inline-block max-w-[85%] px-5 py-3.5 rounded-2xl shadow-md ${
+              className={`inline-block max-w-[88%] md:max-w-[85%] px-4 md:px-5 py-3 md:py-3.5 rounded-2xl shadow-md text-sm md:text-base ${
                 msg.role === "user"
                   ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
                   : "bg-white border border-gray-200 text-gray-800"
@@ -113,13 +112,13 @@ export default function Chatbot({ onClose }) {
                           style={tomorrow}
                           language={match[1]}
                           PreTag="div"
-                          className="rounded-lg mt-3 text-sm overflow-x-auto"
+                          className="rounded-lg mt-3 text-xs md:text-sm overflow-x-auto"
                           {...props}
                         >
                           {String(children).replace(/\n$/, "")}
                         </SyntaxHighlighter>
                       ) : (
-                        <code className="bg-gray-800 text-pink-300 px-2 py-1 rounded text-sm font-medium" {...props}>
+                        <code className="bg-gray-800 text-pink-300 px-2 py-1 rounded text-xs md:text-sm font-medium" {...props}>
                           {children}
                         </code>
                       );
@@ -137,7 +136,7 @@ export default function Chatbot({ onClose }) {
 
         {loading && (
           <div className="text-left">
-            <div className="inline-block bg-white px-6 py-4 rounded-2xl shadow-md border">
+            <div className="inline-block bg-white px-5 md:px-6 py-3.5 md:py-4 rounded-2xl shadow-md border">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce"></div>
                 <div className="w-3 h-3 bg-purple-600 rounded-full animate-bounce delay-100"></div>
@@ -151,24 +150,24 @@ export default function Chatbot({ onClose }) {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="p-5 bg-gray-50 border-t">
-        <div className="flex gap-3">
+      {/* Input Area - Mobile + Desktop Perfect */}
+      <div className="p-3 md:p-5 bg-gray-50 border-t shrink-0">
+        <div className="flex gap-2 md:gap-3 items-center">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
             placeholder="Ask about projects, skills, or hire me..."
-            className="flex-1 px-6 py-3.5 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all shadow-sm text-gray-800 placeholder-gray-500"
+            className="flex-1 px-4 md:px-6 py-3.5 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all shadow-sm text-gray-800 placeholder-gray-500 text-sm md:text-base"
             disabled={loading}
           />
           <button
             onClick={sendMessage}
             disabled={loading}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-full hover:scale-110 transition-all disabled:opacity-60 shadow-lg flex items-center justify-center"
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3.5 md:p-4 rounded-full hover:scale-110 transition-all disabled:opacity-60 shadow-lg flex items-center justify-center min-w-[48px]"
           >
-            <Send size={22} />
+            <Send size={20} className="md:size-22" />
           </button>
         </div>
       </div>
