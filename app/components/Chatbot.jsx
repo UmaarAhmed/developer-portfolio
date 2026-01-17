@@ -29,10 +29,10 @@ export default function Chatbot({ onClose }) {
     setInput("");
     setLoading(true);
 
-    // --- DYNAMIC URL LOGIC ---
-    const API_BASE_URL = typeof window !== "undefined" && window.location.hostname === "localhost" 
-      ? "http://localhost:5000" 
-      : ""; 
+// --- DYNAMIC URL LOGIC ---
+const API_BASE_URL = process.env.NODE_ENV === "production"
+  ? "https://your-backend.vercel.app"  // Replace with actual Vercel URL (e.g., https://umaar-backend.vercel.app)
+  : "http://localhost:5000";
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/chat`, {
