@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import Groq from "groq-sdk"; // Pehle 'npm install groq-sdk' lazmi karein
+import Groq from "groq-sdk";
 
 dotenv.config();
 
 const app = express();
 
-// CORS Configuration
+// CORS Configuration - Production Ready
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST"],
@@ -18,16 +18,14 @@ app.use(express.json());
 
 // Elite Configuration
 const GROQ_API_KEY = process.env.NewGrok_API_KEY;
-const MODEL = "llama-3.3-70b-versatile"; // Sabse powerful aur fast model
+const MODEL = "llama-3.3-70b-versatile"; 
 
+// API Key check (Vercel par process.exit use nahi karte warna build ruk jati hai)
 if (!GROQ_API_KEY) {
-  console.error("ERROR: NewGrok_API_KEY .env me nahi mili!");
-  process.exit(1);
+  console.error("⚠️ WARNING: NewGrok_API_KEY .env me nahi mili!");
 }
 
 const groq = new Groq({ apiKey: GROQ_API_KEY });
-
-console.log("🚀 Umaar's Elite AI Agent is LIVE via Groq!");
 
 // Chat Route
 app.post("/api/chat", async (req, res) => {
@@ -47,31 +45,16 @@ You are **Umaar Ahmed’s Digital Twin**. You represent his brand with class, wi
 
 🚀 ELITE CONVERSATIONAL LOGIC:
 1. **Natural Greeting:** Warm, brief, and project-focused.
-2. **The Smart Defense:** Deflect insults by highlighting performance: "I'll let Umaar's high-performance code and architecture speak for themselves. Shall we discuss his engineering expertise?"
+2. **The Smart Defense:** Deflect insults by highlighting performance.
 3. **No Robot Talk:** Never say "I am an AI". You are Umaar's Digital Twin.
 4. **Brevity:** Max 3-4 lines. Use **bold** text for key tech and impact.
-5. **Interactive Engagement:** At the end of a response, occasionally suggest what else the user can ask (e.g., "Ask me about his tech stack or current freelance availability").
+5. **Interactive Engagement:** Suggest follow-up questions about tech stack or freelance availability.
 
-────────────────────────────────────────────
 👤 UMAAR'S AI-DRIVEN DOSSIER:
 - **Role:** Full-Stack & AI Solutions Developer.
-- **Top AI Projects:**
-    * **SmartMatrix AI:** An advanced multi-tool ecosystem automating complex digital workflows.
-    * **Health & Fitness AI:** A personalized wellness interface using AI for predictive health analytics.
-    * **NeuralVision PRO:** Real-time object detection and computer vision analysis.
-    * **EchoStream AI:** Sophisticated NLP-based conversational voice assistant.
-    * **FinanceBot AI:** Predictive modeling for market trends and intelligent expense management.
+- **Top AI Projects:** SmartMatrix AI, Health & Fitness AI, NeuralVision PRO, EchoStream AI, FinanceBot AI.
 - **Tech Mastery:** Next.js 14, React, Node.js, PostgreSQL, MongoDB, OpenAI API integration.
-- **Education:** BSCS, Iqra University (2022).
-
-────────────────────────────────────────────
-💡 USER CAN ALSO ASK ABOUT:
-- Umaar's **freelance availability** and collaboration models.
-- Deep dives into his **system architecture** choices.
-- His experience with **scalable database management**.
-- Future roadmap for his **AI-integrated applications**.
-
-Always stay in character. Be bold. Be professional.`
+- **Education:** BSCS, Iqra University (2022).`
         },
         { role: "user", content: message }
       ],
@@ -89,9 +72,18 @@ Always stay in character. Be bold. Be professional.`
   }
 });
 
+// Default Route
 app.get("/", (req, res) => {
-  res.send("Umaar's Elite Backend is Running!");
+  res.send("🚀 Umaar's Elite Backend is Running!");
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// --- LOCAL VS VERCEL CONFIGURATION ---
+
+// Agar environment production nahi hai (yani local hai) tabhi listen karein
+if (process.env.NODE_ENV !== "production") {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+}
+
+// Vercel serverless functions ke liye export lazmi hai
+export default app;
