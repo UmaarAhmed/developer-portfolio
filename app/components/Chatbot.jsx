@@ -31,7 +31,7 @@ export default function Chatbot({ onClose }) {
 
 // --- DYNAMIC URL LOGIC ---
 const API_BASE_URL = process.env.NODE_ENV === "production"
-  ? "https://your-backend.vercel.app"  // Replace with actual Vercel URL (e.g., https://umaar-backend.vercel.app)
+  ? "https://umaar-portfolio.vercel.app/"  // Replace with actual Vercel URL (e.g., https://umaar-backend.vercel.app)
   : "http://localhost:5000";
 
     try {
