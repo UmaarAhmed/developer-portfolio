@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { Bot, Send, X } from "lucide-react";
+import { Bot, Send, X, Zap } from "lucide-react";
 
 export default function Chatbot({ onClose }) {
   const [messages, setMessages] = useState([]);
@@ -29,33 +29,33 @@ export default function Chatbot({ onClose }) {
     setInput("");
     setLoading(true);
 
+    // --- DYNAMIC URL LOGIC ---
+    const API_BASE_URL = typeof window !== "undefined" && window.location.hostname === "localhost" 
+      ? "http://localhost:5000" 
+      : ""; 
+
     try {
-      const res = await fetch(
-        "https://developer-portfolio-1-l1f4.onrender.com/api/chat",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMessage }),
-        }
-      );
+      const res = await fetch(`${API_BASE_URL}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
 
       const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || "Bot not responding");
 
-      if (!res.ok || data.error) {
-        throw new Error(data.error || "Bot not responding");
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: data.reply },
-      ]);
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch (err) {
       console.error("AI Bot Error:", err);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: `I'm currently experiencing technical difficulties.\n\nPlease try again in a moment or refresh the page.\n\nUmaar has been notified and is resolving the issue.`,
+          content: `### ⚡ System Override! 
+          
+My apologies! It seems my connection to **Umaar's digital brain** is momentarily recalibrating. 
+
+👉 **[Message Umaar on LinkedIn](https://www.linkedin.com/in/umaar-ahmed-a3b252266/)**`,
         },
       ]);
     } finally {
@@ -64,111 +64,127 @@ export default function Chatbot({ onClose }) {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-10 md:right-8 w-[94vw] max-w-lg md:w-96 h-[520px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200">
+    <div className="fixed bottom-0 right-0 md:bottom-10 md:right-8 w-full md:w-[340px] h-[100dvh] md:h-[510px] bg-white md:rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200">
       
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 md:p-5 flex justify-between items-center rounded-t-3xl shrink-0">
-        <div className="flex items-center gap-3 md:gap-4">
-          <Bot size={32} className="md:size-34" />
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 flex justify-between items-center shrink-0">
+        <div className="flex items-center gap-3">
+          <Bot size={28} />
           <div>
-            <h3 className="font-bold text-lg md:text-xl">Umaar's Assistant</h3>
-            <p className="text-xs opacity-90">Powered by Grok • Online • Ask anything!</p>
+            <h3 className="font-bold text-base md:text-lg leading-tight">Umaar's Assistant</h3>
+            <p className="text-[10px] opacity-90">Powered by Grok 2.0 • Online</p>
           </div>
         </div>
         <button onClick={onClose} className="hover:bg-white/20 p-2 rounded-full transition">
-          <X size={20} className="md:size-22" />
+          <X size={20} />
         </button>
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-5 bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
         {messages.length === 0 && !loading && (
-          <div className="text-center text-gray-600 mt-16 md:mt-24">
-            <Bot size={60} className="mx-auto mb-4 opacity-40 md:size-72" />
-            <p className="text-lg md:text-xl font-semibold">Hello! I'm Umaar's AI Assistant</p>
-            <p className="text-xs md:text-sm mt-3 max-w-xs mx-auto leading-relaxed px-4">
-              Ask about projects, skills, experience, rates, or freelance availability.
-            </p>
+          <div className="text-center text-gray-500 mt-10">
+            <Bot size={48} className="mx-auto mb-3 opacity-20" />
+            <p className="font-semibold text-sm">Hello! I'm Umaar's AI Assistant</p>
+            <p className="text-xs mt-2 px-6">Ask about projects, skills, or freelance availability.</p>
           </div>
         )}
 
         {messages.map((msg, i) => (
-          <div key={i} className={msg.role === "user" ? "text-right" : "text-left"}>
+          <div key={i} className={msg.role === "user" ? "flex justify-end" : "flex justify-start"}>
             <div
-              className={`inline-block max-w-[88%] md:max-w-[85%] px-4 md:px-5 py-3 md:py-3.5 rounded-2xl shadow-md text-sm md:text-base ${
+              className={`max-w-[85%] px-4 py-2.5 rounded-2xl shadow-sm text-sm ${
                 msg.role === "user"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                  : "bg-white border border-gray-200 text-gray-800"
+                  ? "bg-indigo-600 text-white rounded-tr-none"
+                  : "bg-white border border-gray-200 text-gray-800 rounded-tl-none"
               }`}
             >
               {msg.role === "assistant" ? (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    code({ inline, className, children, ...props }) {
-                      const match = /language-(\w+)/.exec(className || "");
-                      return !inline && match ? (
-                        <SyntaxHighlighter
-                          style={tomorrow}
-                          language={match[1]}
-                          PreTag="div"
-                          className="rounded-lg mt-3 text-xs md:text-sm overflow-x-auto"
-                          {...props}
-                        >
-                          {String(children).replace(/\n$/, "")}
-                        </SyntaxHighlighter>
-                      ) : (
-                        <code className="bg-gray-800 text-pink-300 px-2 py-1 rounded text-xs md:text-sm font-medium" {...props}>
-                          {children}
-                        </code>
-                      );
-                    },
-                  }}
-                >
-                  {msg.content}
-                </ReactMarkdown>
+                <div className="prose prose-sm max-w-none break-words">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      code({ inline, className, children, ...props }) {
+                        const match = /language-(\w+)/.exec(className || "");
+                        return !inline && match ? (
+                          <div className="max-w-full overflow-x-auto">
+                            <SyntaxHighlighter
+                              style={tomorrow}
+                              language={match[1]}
+                              PreTag="div"
+                              className="rounded-lg text-xs"
+                              {...props}
+                            >
+                              {String(children).replace(/\n$/, "")}
+                            </SyntaxHighlighter>
+                          </div>
+                        ) : (
+                          <code className="bg-gray-100 px-1 rounded text-pink-600 font-mono" {...props}>
+                            {children}
+                          </code>
+                        );
+                      },
+                    }}
+                  >
+                    {msg.content}
+                  </ReactMarkdown>
+                </div>
               ) : (
-                <p className="font-medium">{msg.content}</p>
+                <p className="whitespace-pre-wrap">{msg.content}</p>
               )}
             </div>
           </div>
         ))}
 
         {loading && (
-          <div className="text-left">
-            <div className="inline-block bg-white px-5 md:px-6 py-3.5 md:py-4 rounded-2xl shadow-md border">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce"></div>
-                <div className="w-3 h-3 bg-purple-600 rounded-full animate-bounce delay-100"></div>
-                <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-200"></div>
+          <div className="flex justify-start">
+            <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-2">
+              <Bot size={14} className="text-indigo-600 animate-pulse" />
+              <span className="text-sm font-medium text-gray-500 tracking-tight">Thinking</span>
+              <div className="flex gap-1 items-end pb-1">
+                <span className="w-1 h-1 bg-indigo-600 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-1 h-1 bg-indigo-600 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-1 h-1 bg-indigo-600 rounded-full animate-bounce"></span>
               </div>
-              <p className="text-sm text-gray-500 mt-3">thinking...</p>
             </div>
           </div>
         )}
-
+        
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area - Mobile + Desktop Perfect */}
-      <div className="p-3 md:p-5 bg-gray-50 border-t shrink-0">
-        <div className="flex gap-2 md:gap-3 items-center">
+      {/* Input Area */}
+      <div className="px-4 pb-4 bg-white shrink-0">
+        <div className="group relative flex items-center bg-[#F3F4F6] border border-[#234B94]/30 rounded-full p-1 transition-all focus-within:bg-white focus-within:border-[#294F96] focus-within:ring-2 focus-within:ring-[#8E13A1]/10">
+          <div className="pl-3 text-[#234B94]/50 transition-colors group-focus-within:text-[#123D94]">
+            <Zap size={18} fill="currentColor" />
+          </div>
+          
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-            placeholder="Ask about projects, skills, or hire me..."
-            className="flex-1 px-4 md:px-6 py-3.5 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all shadow-sm text-gray-800 placeholder-gray-500 text-sm md:text-base"
+            placeholder="Type a message..."
+            className="flex-1 px-3 py-2.5 bg-transparent border-none text-sm outline-none text-gray-700 placeholder:text-gray-400 min-w-0"
             disabled={loading}
           />
+          
           <button
             onClick={sendMessage}
-            disabled={loading}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3.5 md:p-4 rounded-full hover:scale-110 transition-all disabled:opacity-60 shadow-lg flex items-center justify-center min-w-[48px]"
+            disabled={loading || !input.trim()}
+            className="bg-indigo-600 text-white p-2.5 rounded-full hover:bg-indigo-700 transition-all active:scale-95 disabled:opacity-20 shadow-md shrink-0"
           >
-            <Send size={20} className="md:size-22" />
+            <Send size={16} />
           </button>
+        </div>
+
+        <div className="flex justify-between items-center px-3 mt-3">
+          <div className="flex items-center gap-1.5">
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_5px_rgba(34,197,94,0.6)]"></div>
+            <span className="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">Secure Link</span>
+          </div>
+          <p className="text-[9px] text-gray-800 font-bold uppercase tracking-widest italic opacity-60">By Umaar Ahmed</p>
         </div>
       </div>
     </div>
