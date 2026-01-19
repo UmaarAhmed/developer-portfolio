@@ -35,11 +35,12 @@ const API_BASE_URL = window.location.hostname === "localhost"
   : "https://developer-portfolio-umaarahmed.vercel.app"; // Apni backend link yahan lazmi dalein
 
 try {
-  const res = await fetch(`${API_BASE_URL}/api/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: userMessage }),
-  });
+// Local par ho ya Vercel par, ye code khud rasta dhoond lega
+const res = await fetch("/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: userMessage }),
+});
   // ... rest of the code
 
       const data = await res.json();
