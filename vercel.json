@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "rewrites": [
-    { 
-      "source": "/api/chat", 
-      "destination": "/server/index.js" 
-    }
-  ]
-}
