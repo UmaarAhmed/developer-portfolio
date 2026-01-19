@@ -29,17 +29,18 @@ export default function Chatbot({ onClose }) {
     setInput("");
     setLoading(true);
 
-    // --- DYNAMIC URL LOGIC ---
-    const API_BASE_URL = typeof window !== "undefined" && window.location.hostname === "localhost" 
-      ? "http://localhost:5000" 
-      : ""; 
+   // --- UPDATED DYNAMIC URL ---
+const API_BASE_URL = window.location.hostname === "localhost" 
+  ? "http://localhost:5000" 
+  : "https://developer-portfolio-umaarahmed.vercel.app"; // Apni backend link yahan lazmi dalein
 
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      });
+try {
+  const res = await fetch(`${API_BASE_URL}/api/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMessage }),
+  });
+  // ... rest of the code
 
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.error || "Bot not responding");
