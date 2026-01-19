@@ -3,13 +3,16 @@ export const personalData = {
   profile: '/new.png',
   designation: "Full Stack Developer",
 description: `
-Hi, I'm Umaar Ahmed — a passionate and professional Full-Stack Developer
-specializing in website and web application development. I have a strong
-foundation in JavaScript and its ecosystem, and I love building scalable,
-high-performance digital experiences. I’m a quick learner with a 
-self-driven attitude, always exploring new technologies and solving
-challenging problems. I am available for freelance or full-time remote
-opportunities that align with my skills and expertise.
+Hi, I'm Umaar Ahmed — a Full-Stack Developer dedicated to engineering 
+high-performance websites, web apps, and mobile solutions. With a dual 
+background as a Software Developer and Customer Support Executive, I 
+possess a unique ability to bridge the gap between complex technical 
+architecture and seamless user experience.
+
+Specializing in the JavaScript ecosystem (React, Next.js, Node.js), I build 
+scalable, user-centric digital products. I am a quick learner and a natural 
+problem solver, available for freelance or remote opportunities where 
+technical excellence and expert communication are required.
 `,
 
 

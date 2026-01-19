@@ -11,12 +11,16 @@ import { FaArrowRight } from "react-icons/fa";
 import { RiContactsFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 
-// Typing roles
+
+// Typing roles - Covering Websites, Web Apps, and Customer Experience
 const roles = [
-  "Senior React & Next.js Developer",
-  "Full-Stack Engineer — TypeScript & JavaScript",
-  "Building High-Performance, Scalable Web Applications",
-  "Open for Freelance & Remote Job"
+  "Full-Stack Software Developer",
+  "React & Next.js Expert",
+  "Web & Mobile Application Developer", 
+  "Technical Problem Solver",
+  "Customer Support & Experience Specialist",
+  "Building High-End Websites & Portals",
+  "Open for Freelance Projects & Remote Job"
 ];
 
 function HeroSection() {
@@ -156,7 +160,7 @@ function HeroSection() {
           <div className="relative group">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-600 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-1000"></div>
 
-            <div className="relative bg-[#0d1224]/95 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-xl p-6 lg:p-8 overflow-hidden hover:border-pink-500/30 transition-all duration-500">
+            <div className="relative bg-[#0d1224]/95 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-xl p-4 lg:p-4 overflow-hidden hover:border-pink-500/30 transition-all duration-500">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
                   <div className="flex gap-2">
@@ -173,19 +177,38 @@ function HeroSection() {
               </div>
 
               <div className="overflow-x-auto">
-                <code className="font-mono text-xs md:text-sm text-gray-200 leading-relaxed">
-                  <div><span className="text-pink-500">const</span> <span className="text-white">developer</span> <span className="text-pink-500">=</span> <span className="text-gray-400">{"{"}</span></div>
-                  <div className="ml-4"><span className="text-white">name:</span> <span className="text-amber-300">'Umaar Ahmed',</span></div>
-                  <div className="ml-4"><span className="text-white">roles:</span> <span className="text-amber-300">[ "Senior React & Next.js Developer", "Full-Stack Engineer — TypeScript & JavaScript", "Building High-Performance, Scalable Web Applications", "Open for Freelance & Remote Job" ],</span></div>
-                  <div className="ml-4"><span className="text-white">skills:</span> <span className="text-amber-300">[ "React", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Firebase", "Git & GitHub" ],</span></div>
-                  <div className="ml-4"><span className="text-white">hardWorker:</span> <span className="text-orange-400">true,</span></div>
-                  <div className="ml-4"><span className="text-white">quickLearner:</span> <span className="text-orange-400">true,</span></div>
-                  <div className="ml-4"><span className="text-white">problemSolver:</span> <span className="text-orange-400">true</span></div>
-                  <div className="text-gray-400">{"};"}</div>
-                </code>
-              </div>
+               <code className="font-mono text-xs md:text-sm text-gray-200 leading-relaxed">
+  <div><span className="text-pink-500">const</span> <span className="text-white">developer</span> <span className="text-pink-500">=</span> <span className="text-gray-400">{"{"}</span></div>
+  
+  {/* Basic Identity */}
+  <div className="ml-4"><span className="text-white">name:</span> <span className="text-amber-300">'Umaar Ahmed',</span></div>
+  
+  {/* Professional Scope */}
+  <div className="ml-4"><span className="text-white">builds:</span> <span className="text-gray-400">[</span></div>
+    <div className="ml-8 text-amber-300">'Websites', 'WebApps', 'MobileApps', 'Scalable-APIs'</div>
+  <div className="ml-4 text-gray-400">],</div>
+  
+  {/* Expertise */}
+  <div className="ml-4">
+    <span className="text-white">expertise:</span> <span className="text-gray-400">[</span>
+    <div className="ml-8 text-amber-300"> 'Full-Stack Engineering','Architecture & System Design','API Integration','Database Management','UI/UX Design','Technical Customer Support'
+</div>
+    <div className="ml-4 text-gray-400">],</div>
+  </div>
 
-              <div className="mt-5 h-px bg-gradient-to-r from-transparent via-pink-500/40 to-transparent"></div>
+  {/* Skills */}
+<div className="ml-4"><span className="text-white">skills:</span> <span className="text-gray-400">[</span></div>
+  <div className="ml-8 text-amber-300">'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Prisma', 'MongoDB', 'Redux', 'Tailwind', 'Github'</div>
+<div className="ml-4 text-gray-400">],</div>
+
+  {/* Experience & Problem Solving */}
+  <div className="ml-4"><span className="text-white">problemSolver:</span> <span className="text-orange-400">true,</span></div>
+  <div className="ml-4"><span className="text-white">customerCentric:</span> <span className="text-orange-400">true,</span> <span className="text-gray-500">// Support Background</span></div>
+  <div className="ml-4"><span className="text-white">responsiveDesign:</span> <span className="text-orange-400">true,</span></div>
+</code>
+  </div>
+
+              <div className="mt-2 h-px bg-gradient-to-r from-transparent via-pink-500/40 to-transparent"></div>
             </div>
           </div>
         </div>

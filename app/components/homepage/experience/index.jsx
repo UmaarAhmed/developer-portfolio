@@ -19,7 +19,7 @@ function Experience() {
       />
 
       <div className="flex justify-center my-5 lg:py-8">
-        <div className="flex  items-center">
+        <div className="flex items-center">
           <span className="w-24 h-[2px] bg-[#1a1443]"></span>
           <span className="bg-[#1a1443] w-fit text-white p-2 px-5 text-xl rounded-md">
             Experiences
@@ -54,17 +54,28 @@ function Experience() {
                           {experience.duration}
                         </p>
                       </div>
-                      <div className="flex items-center gap-x-8 px-3 py-5">
-                        <div className="text-violet-500  transition-all duration-300 hover:scale-125">
+                      <div className="flex items-start gap-x-8 px-3 py-5">
+                        <div className="text-violet-500 transition-all duration-300 hover:scale-125 mt-1">
                           <BsPersonWorkspace size={36} />
                         </div>
                         <div>
-                          <p className="text-base sm:text-xl mb-2 font-medium uppercase">
+                          <p className="text-base sm:text-xl mb-2 font-medium uppercase text-white">
                             {experience.title}
                           </p>
-                          <p className="text-sm sm:text-base">
+                          <p className="text-sm sm:text-base text-pink-500 mb-4">
                             {experience.company}
                           </p>
+                          
+                          {/* Description Mapping Logic */}
+                          {experience.description && (
+                            <ul className="list-disc ml-5 space-y-2 text-gray-300">
+                              {experience.description.map((desc, index) => (
+                                <li key={index} className="text-xs sm:text-sm leading-relaxed">
+                                  {desc}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
                       </div>
                     </div>

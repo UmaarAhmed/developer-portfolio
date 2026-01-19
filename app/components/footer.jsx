@@ -35,7 +35,7 @@ export default function Footer() {
             </p>
 
             <p className="text-[11px] text-gray-500">
-              Version 1.0.3 • Updated Nov 2025
+              Version 1.0.3 • Last Update on Jan 2026
             </p>
           </div>
 
