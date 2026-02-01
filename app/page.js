@@ -9,34 +9,60 @@ import Projects from "./components/homepage/projects";
 import Skills from "./components/homepage/skills";
 import Certificates from "./components/homepage/Certificates/Certificates";
 
+// 1. Pehle data fetch karne wala function define karein
 async function getData() {
-  const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}`)
+  const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}`);
 
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    throw new Error('Failed to fetch data');
   }
 
   const data = await res.json();
-
   const filtered = data.filter((item) => item?.cover_image).sort(() => Math.random() - 0.5);
 
   return filtered;
-};
+}
 
+// 2. Phir Home component define karein
 export default async function Home() {
   const blogs = await getData();
 
   return (
-    <div suppressHydrationWarning >
-      <HeroSection />
-      <AboutSection />
-      <Skills />
-      <Experience />
-      <Education />
-      <Projects />
-      <Certificates/>
-      <Blog blogs={blogs} />
-      <ContactSection />
+    <div suppressHydrationWarning>
+      <section id="home">
+        <HeroSection />
+      </section>
+
+      <section id="about">
+        <AboutSection />
+      </section>
+
+      <section id="skills">
+        <Skills />
+      </section>
+
+      <section id="experience">
+        <Experience />
+      </section>
+
+      <section id="education">
+        <Education />
+      </section>
+
+      <section id="projects">
+        <Projects />
+      </section>
+
+      {/* Certificates component ke andar pehle se <section id="certificates"> hai */}
+      <Certificates />
+
+      <section id="blog">
+        <Blog blogs={blogs} />
+      </section>
+
+      <section id="contact">
+        <ContactSection />
+      </section>
     </div>
-  )
-};
+  );
+}

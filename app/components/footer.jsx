@@ -13,9 +13,9 @@ export default function Footer() {
 
       <div className="mx-auto max-w-7xl px-5 py-10 sm:py-12">
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 text-center md:text-left items-start">
 
-          {/* LEFT – Updated as requested */}
+          {/* LEFT – Info */}
           <div className="space-y-3">
             <p className="text-sm text-gray-300">
               © Developer Portfolio by{" "}
@@ -41,7 +41,7 @@ export default function Footer() {
 
           {/* CENTER – Visitors */}
           <div className="flex flex-col items-center space-y-6">
-            <div>
+            <div className="text-center">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-100">
                 Thank You for Visiting
               </h3>
@@ -55,8 +55,7 @@ export default function Footer() {
               className="flex items-center gap-4 px-7 py-3 
               rounded-full bg-white/5 backdrop-blur-md
               border border-[#12d8a0]/20 shadow-md
-              shadow-[#12d8a0]/10 hover:shadow-[#12d8a0]/30
-              transition-all duration-300"
+              shadow-[#12d8a0]/10 transition-all duration-300"
             >
               <span className="text-[14px] text-gray-400">Visited by:</span>
               <span className="text-3xl font-bold text-[#12d8a0]">
@@ -66,38 +65,42 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* RIGHT – GitHub */}
-<div className="flex flex-col items-end md:items-end md:mr-13 space-y-5">
-  <div className="flex items-center gap-8">
-    <Link
-      href="https://github.com/UmaarAhmed"
-      target="_blank"
-      className="group flex items-center gap-2 text-gray-400 hover:text-[#12d8a0] transition-all"
-    >
-      <IoStar className="text-xl group-hover:scale-110" />
-      <span className="text-xs font-semibold tracking-wide">Star</span>
-    </Link>
+          {/* RIGHT – GitHub (Shifted Left for Floating Icons) */}
+          <div className="flex flex-col items-center md:items-start md:pl-12 lg:pl-20 space-y-5 md:pr-24">
+            <div className="flex items-center gap-4">
+              {/* Star Button - Yellow with Border */}
+              <Link
+                href="https://github.com/UmaarAhmed"
+                target="_blank"
+                className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-yellow-500/30 bg-yellow-500/5 text-gray-300 hover:text-yellow-500 hover:border-yellow-500 transition-all"
+              >
+                <IoStar className="text-lg group-hover:scale-110" />
+                <span className="text-xs font-bold tracking-wide">Star</span>
+              </Link>
 
-    <Link
-      href="https://github.com/UmaarAhmed?tab=repositories"
-      target="_blank"
-      className="group flex items-center gap-2 text-gray-400 hover:text-[#12d8a0] transition-all"
-    >
-      <CgGitFork className="text-xl group-hover:rotate-12" />
-      <span className="text-xs font-semibold tracking-wide">Fork</span>
-    </Link>
-  </div>
+              {/* Fork Button - Cyan with Border */}
+              <Link
+                href="https://github.com/UmaarAhmed?tab=repositories"
+                target="_blank"
+                className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-500/30 bg-cyan-500/5 text-gray-300 hover:text-cyan-400 hover:border-cyan-500 transition-all"
+              >
+                <CgGitFork className="text-lg group-hover:rotate-12" />
+                <span className="text-xs font-bold tracking-wide">Fork</span>
+              </Link>
+            </div>
 
-  <p className="text-[12px] text-gray-400 leading-relaxed text-center md:text-right">
-    Built in <span className="text-green-400 font-medium">Pakistan</span> •  
-    Serving clients worldwide 🌍
-  </p>
-</div>
+            <div className="text-center md:text-left">
+              <p className="text-[12px] text-gray-400 leading-relaxed">
+                Built in <span className="text-green-400 font-medium border-b border-green-400/20">Pakistan</span> •  
+                Serving worldwide 🌍
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Line */}
-        <div className="mt-6 pt-4 border-t border-white/5 text-center">
-          <p className="text-[11px] text-gray-500">
+        <div className="mt-10 pt-4 border-t border-white/5 text-center">
+          <p className="text-[11px] text-gray-500 tracking-[0.2em] uppercase">
             Handcrafted by Umaar • Keep creating, keep inspiring.
           </p>
         </div>
