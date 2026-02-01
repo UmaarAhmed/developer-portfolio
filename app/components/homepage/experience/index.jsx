@@ -33,15 +33,10 @@ function Experience() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         
-        {/* --- LEFT SIDE: COMPACT CIRCLE (Education Size) --- */}
+        {/* --- LEFT SIDE: ANIMATION --- */}
         <div className="lg:col-span-5 flex justify-center lg:sticky lg:top-40 mb-10 lg:mb-0">
-          {/* max-w-[350px] maintains the Education section feel */}
           <div className="relative w-full max-w-[350px] aspect-square flex items-center justify-center">
-            
-            {/* Outer Faded Blur */}
             <div className="absolute w-[80%] h-[80%] rounded-full bg-yellow-500/5 blur-[60px]"></div>
-            
-            {/* Animated Ring (Education Size) */}
             <motion.div 
               animate={{ 
                 scale: [1, 1.05, 1],
@@ -50,8 +45,6 @@ function Experience() {
               transition={{ duration: 4, repeat: Infinity }}
               className="absolute w-full h-full rounded-full border-2 border-yellow-500/20 bg-transparent z-0"
             ></motion.div>
-
-            {/* BIG ANIMATION POP-OUT */}
             <div className="relative w-[130%] z-10 drop-shadow-[0_0_20px_rgba(234,179,8,0.2)]">
               <AnimationLottie animationPath={experienceLottie} />
             </div>
@@ -72,18 +65,21 @@ function Experience() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/10 via-yellow-500/10 to-emerald-500/10 rounded-[1.8rem] blur-xl opacity-100"></div>
 
               <GlowCard identifier={`experience-${experience.id}`}>
-                <div className="p-5 md:p-8 relative overflow-hidden bg-[#0d1224]/95 backdrop-blur-xl border border-emerald-500/30 rounded-[1.8rem] transition-all duration-500 hover:border-yellow-500/50">
+                <div className="p-4 md:p-8 relative overflow-hidden bg-[#0d1224]/95 backdrop-blur-xl border border-emerald-500/30 rounded-[1.8rem] transition-all duration-500 hover:border-yellow-500/50">
                   
-                  <div className="relative z-10 flex items-start gap-5">
+                  <div className="relative z-10 flex flex-col md:flex-row items-start gap-4 md:gap-5">
+                    
+                    {/* Icon Container */}
                     <motion.div 
                       animate={{ rotate: 360 }}
                       transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                      className="shrink-0 p-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.1)]"
+                      className="shrink-0 p-3 md:p-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.1)] hidden md:block"
                     >
                       <BsPersonWorkspace size={30} />
                     </motion.div>
 
                     <div className="flex flex-col gap-2 w-full">
+                      {/* Title & Duration */}
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <h3 className="text-xl md:text-2xl font-black text-white uppercase italic tracking-tight group-hover:text-yellow-400 transition-colors">
                           {experience.title}
@@ -93,19 +89,21 @@ function Experience() {
                         </span>
                       </div>
 
+                      {/* Company Name (Aligned Left) */}
                       <div className="flex items-center gap-3">
-                        <span className="h-[2px] w-6 bg-yellow-500 rounded-full shadow-[0_0_8px_#eab308]"></span>
+                        <span className="h-[2px] w-4 md:w-6 bg-yellow-500 rounded-full shadow-[0_0_8px_#eab308]"></span>
                         <p className="text-yellow-500 text-sm md:text-base font-bold uppercase tracking-wider">
                           {experience.company}
                         </p>
                       </div>
 
+                      {/* Description (Left Aligned on Mobile) */}
                       {experience.description && (
-                        <ul className="mt-4 space-y-2 border-l border-emerald-500/30 pl-4">
+                        <ul className="mt-4 space-y-2 border-l border-emerald-500/30 pl-3 md:pl-4 ml-1 md:ml-0">
                           {experience.description.map((desc, i) => (
                             <li key={i} className="text-gray-400 text-xs md:text-sm leading-relaxed flex items-start gap-2">
-                              <span className="text-yellow-500 mt-1">•</span>
-                              {desc}
+                              <span className="text-yellow-500 shrink-0">•</span>
+                              <span>{desc}</span>
                             </li>
                           ))}
                         </ul>
