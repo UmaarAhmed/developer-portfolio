@@ -7,8 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "update-browserslist-db@latest"
   },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
+  ],
   "dependencies": {
     "@emailjs/browser": "^4.3.1",
     "@next/third-parties": "^16.0.1",
@@ -35,6 +42,8 @@
     "@types/node": "24.10.1",
     "@types/react": "19.2.5",
     "autoprefixer": "latest",
+    "baseline-browser-mapping": "^2.11.27",
+    "caniuse-lite": "^1.0.30001814",
     "eslint": "latest",
     "eslint-config-next": "^16.0.1",
     "postcss": "latest",

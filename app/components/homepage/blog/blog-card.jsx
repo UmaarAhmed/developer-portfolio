@@ -8,19 +8,19 @@ import { FaCommentAlt } from 'react-icons/fa';
 function BlogCard({ blog }) {
 
   return (
-    <div className="border border-[#1d293a] hover:border-[#464c6a] transition-all duration-500 bg-[#1b203e] rounded-lg relative group"
+    <div className="group relative overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/50"
     >
-      <div className="h-44 lg:h-52 w-auto cursor-pointer overflow-hidden rounded-t-lg">
+      <div className="h-44 w-full cursor-pointer overflow-hidden lg:h-52">
         <Image
           src={blog?.cover_image}
           height={1080}
           width={1920}
           alt=""
-          className='h-full w-full group-hover:scale-110 transition-all duration-300'
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
       <div className="p-2 sm:p-3 flex flex-col">
-        <div className="flex justify-between items-center text-[#16f2b3] text-sm">
+        <div className="flex justify-between items-center text-[var(--accent)] text-sm">
           <p>{timeConverter(blog.published_at)}</p>
           <div className="flex items-center gap-3">
             <p className="flex items-center gap-1">
@@ -36,14 +36,14 @@ function BlogCard({ blog }) {
           </div>
         </div>
         <Link target='_blank' href={blog.url}>
-          <p className='my-2 lg:my-3 cursor-pointer text-lg text-white sm:text-xl font-medium hover:text-violet-500'>
+          <p className='my-2 lg:my-3 cursor-pointer text-base font-medium text-[var(--ink)] transition-colors hover:text-[var(--accent)] sm:text-xl'>
             {blog.title}
           </p>
         </Link>
-        <p className='mb-2 text-sm text-[#16f2b3]'>
+        <p className='mb-2 text-sm text-[var(--accent)]'>
           {`${blog.reading_time_minutes} Min Read`}
         </p>
-        <p className='text-sm lg:text-base text-[#d3d8e8] pb-3 lg:pb-6 line-clamp-3'>
+        <p className='text-sm lg:text-base line-clamp-3 pb-3 text-sm text-[var(--muted)] lg:pb-6 lg:text-base'>
           {blog.description}
         </p>
         {/* <div className="">

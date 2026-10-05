@@ -34,27 +34,27 @@ function Certificates() {
   return (
     <section
       id="certificates"
-      className="relative bg-gradient-to-b from-[#0d1224] via-[#111637] to-[#0d1224] py-20 text-white overflow-hidden"
+      className="relative overflow-hidden bg-[var(--surface-2)] py-20 text-[var(--ink)]"
     >
       {/* Decorative gradient circles */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-violet-600/20 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl -z-10"></div>
+      <div className="pointer-events-none absolute left-0 top-0 -z-10 h-64 w-64 rounded-full bg-violet-600/15 blur-3xl"></div>
+      <div className="pointer-events-none absolute bottom-0 right-0 -z-10 h-64 w-64 rounded-full bg-cyan-400/15 blur-3xl"></div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <h2 className="text-4xl font-extrabold text-center mb-14 tracking-wide">
-          <span className="bg-gradient-to-r from-[#16f2b3] to-[#4ad7ff] bg-clip-text text-transparent">
-            Certificates & Achievements
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 className="mb-14 text-center text-3xl font-extrabold tracking-wide sm:text-4xl">
+          <span className="bg-gradient-to-r from-[var(--accent)] to-cyan-400 bg-clip-text text-transparent">
+            Certificates &amp; Achievements
           </span>
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {certificates.map((cert, index) => (
             <a
               key={index}
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-white/5 backdrop-blur-lg border border-white/10 p-5 rounded-xl shadow-lg hover:shadow-[#16f2b3]/40 transition-all duration-300 hover:scale-[1.02]"
+              className="group relative rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-2 hover:border-[var(--accent)]/50"
             >
               {/* Animated gradient border on hover */}
               <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-[#16f2b3]/40 transition-all duration-500"></div>
@@ -62,19 +62,19 @@ function Certificates() {
               <img
                 src={cert.image}
                 alt={cert.title}
-                className="w-full h-46 object-contain mb-4 rounded-md transition-transform duration-500 group-hover:scale-105"
+                className="mb-4 h-44 w-full rounded-md bg-[var(--surface-3)] object-contain p-2 transition-transform duration-500 group-hover:scale-105"
               />
               
               <h3
-  className="text-lg font-semibold mb-1 text-[#16f2b3] group-hover:text-[#4ad7ff] transition-colors duration-300"
+  className="mb-1 text-base font-semibold text-[var(--accent)] transition-colors duration-300 group-hover:text-cyan-400 sm:text-lg"
 >
   {cert.title}
 </h3>
 
-              <p className="text-xs text-gray-400 mb-2">
+              <p className="mb-2 text-xs text-[var(--muted)]">
                 {cert.issuer} • {cert.year}
               </p>
-              <p className="text-sm text-gray-300 leading-snug">
+              <p className="text-sm leading-snug text-[var(--ink-2)]">
                 {cert.description}
               </p>
             </a>

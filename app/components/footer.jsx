@@ -3,105 +3,111 @@ import Link from "next/link";
 import { IoStar } from "react-icons/io5";
 import { CgGitFork } from "react-icons/cg";
 import VisitorCounter from "./VisitorCounter";
+import Brand from "./Brand";
+import { personalData } from "@/utils/data/personal-data";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0a0f1a] border-t border-white/10">
-
+    <footer className="relative border-t border-[var(--line)] bg-[var(--surface-2)] text-[var(--ink)]">
       {/* Soft Glow Line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#12d8a0]/40 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent" />
 
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:py-12">
+      <div className="mx-auto max-w-[92rem] px-4 py-12 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:items-start">
+          {/* LEFT – Brand + info */}
+          <div className="flex flex-col items-center gap-5 text-center md:items-start md:text-left">
+            {/* Your photo + name */}
+            <Brand size={64} />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 text-center md:text-left items-start">
-
-          {/* LEFT – Info */}
-          <div className="space-y-3">
-            <p className="text-sm text-gray-300">
-              © Developer Portfolio by{" "}
+            <p className="text-sm text-[var(--muted)]">
+              © {new Date().getFullYear()} · Built by{" "}
               <Link
                 target="_blank"
-                href="https://www.linkedin.com/in/umaar-ahmed-a3b252266/"
-                className="text-[#12d8a0] hover:underline font-semibold"
+                rel="noopener noreferrer"
+                href={personalData.linkedIn}
+                className="font-semibold text-[var(--accent)] underline-offset-4 transition-colors hover:underline"
               >
-                Umaar Ahmed
+                {personalData.name}
               </Link>
             </p>
 
-            <p className="text-[12px] text-gray-400 leading-relaxed">
-              Built with <span className="text-[#12d8a0] font-medium">Next.js</span>,
-              <span className="text-[#12d8a0] font-medium mx-1">React</span> &
-              <span className="text-[#12d8a0] font-medium ml-1">Tailwind CSS</span>.
+            <p className="text-[12px] leading-relaxed text-[var(--muted-2)]">
+              Built with{" "}
+              <span className="font-medium text-[var(--accent)]">Next.js</span>,{" "}
+              <span className="font-medium text-[var(--accent)]">React</span> &amp;{" "}
+              <span className="font-medium text-[var(--accent)]">Tailwind CSS</span>.
             </p>
 
-            <p className="text-[11px] text-gray-500">
-              Version 1.0.3 • Last Update on Jan 2026
+            <p className="text-[11px] text-[var(--muted-2)]">
+              Version 2.0.0 · Built with Next.js 16 &amp; React 19
             </p>
           </div>
 
           {/* CENTER – Visitors */}
-          <div className="flex flex-col items-center space-y-6">
+          <div className="flex flex-col items-center gap-6">
             <div className="text-center">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-100">
+              <h3 className="text-xl font-bold text-[var(--ink)] sm:text-2xl">
                 Thank You for Visiting
               </h3>
-              <p className="mt-1 text-sm text-gray-300">
-                Empowering developers & creators worldwide
-                <span className="text-[#12d8a0] ml-1 animate-pulse text-xl">♥</span>
+              <p className="mt-1 text-sm text-[var(--muted)]">
+                Empowering developers &amp; creators worldwide
+                <span className="ml-1 text-[var(--accent)]">♥</span>
               </p>
             </div>
 
-            <div
-              className="flex items-center gap-4 px-7 py-3 
-              rounded-full bg-white/5 backdrop-blur-md
-              border border-[#12d8a0]/20 shadow-md
-              shadow-[#12d8a0]/10 transition-all duration-300"
-            >
-              <span className="text-[14px] text-gray-400">Visited by:</span>
-              <span className="text-3xl font-bold text-[#12d8a0]">
+            <div className="flex items-center gap-4 rounded-full border border-[var(--line-strong)] bg-[var(--surface)] px-7 py-3 shadow-[var(--shadow-soft)] transition-transform duration-300 hover:scale-105">
+              <span className="text-[14px] text-[var(--muted)]">Visited by:</span>
+              <span className="text-3xl font-bold text-[var(--accent)]">
                 <VisitorCounter />
-                <span className="text-sm font-medium text-gray-400"> developers</span>
+                <span className="text-sm font-medium text-[var(--muted)]">
+                  {" "}
+                  developers
+                </span>
               </span>
             </div>
           </div>
 
-          {/* RIGHT – GitHub (Shifted Left for Floating Icons) */}
-          <div className="flex flex-col items-center md:items-start md:pl-12 lg:pl-20 space-y-5 md:pr-24">
-            <div className="flex items-center gap-4">
-              {/* Star Button - Yellow with Border */}
+          {/* RIGHT – GitHub */}
+          <div className="flex flex-col items-center gap-5 md:items-start lg:pl-8">
+            {/* Two buttons: #1 (left) = zoom, #2 (right) = left→right fill */}
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="https://github.com/UmaarAhmed"
+                href={personalData.github}
                 target="_blank"
-                className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-yellow-500/30 bg-yellow-500/5 text-gray-300 hover:text-yellow-500 hover:border-yellow-500 transition-all"
+                rel="noopener noreferrer"
+                aria-label="Star on GitHub"
+                className="btn-zoom group inline-flex items-center gap-2 rounded-lg border border-[var(--line-strong)] bg-[var(--surface)] px-4 py-2 text-[var(--ink)]"
               >
-                <IoStar className="text-lg group-hover:scale-110" />
-                <span className="text-xs font-bold tracking-wide">Star</span>
+                <IoStar className="relative z-[1] text-lg text-yellow-500 transition-transform duration-300 group-hover:scale-125" />
+                <span className="relative z-[1] text-xs font-bold tracking-wide">
+                  Star
+                </span>
               </Link>
 
-              {/* Fork Button - Cyan with Border */}
               <Link
-                href="https://github.com/UmaarAhmed?tab=repositories"
+                href={`${personalData.github}?tab=repositories`}
                 target="_blank"
-                className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-500/30 bg-cyan-500/5 text-gray-300 hover:text-cyan-400 hover:border-cyan-500 transition-all"
+                rel="noopener noreferrer"
+                aria-label="Fork on GitHub"
+                className="btn-right btn-outline inline-flex items-center gap-2 rounded-lg border border-[var(--line-strong)] px-4 py-2 text-[var(--ink)]"
               >
-                <CgGitFork className="text-lg group-hover:rotate-12" />
-                <span className="text-xs font-bold tracking-wide">Fork</span>
+                <CgGitFork className="relative z-[1] text-lg text-cyan-500" />
+                <span className="relative z-[1] text-xs font-bold tracking-wide">Fork</span>
               </Link>
             </div>
 
-            <div className="text-center md:text-left">
-              <p className="text-[12px] text-gray-400 leading-relaxed">
-                Built in <span className="text-green-400 font-medium border-b border-green-400/20">Pakistan</span> •  
-                Serving worldwide 🌍
-              </p>
-            </div>
+            <p className="text-center text-[12px] leading-relaxed text-[var(--muted)] md:text-left">
+              Built in{" "}
+              <span className="font-medium text-emerald-500">Pakistan</span> ·
+              Serving worldwide 🌍
+            </p>
           </div>
         </div>
 
         {/* Bottom Line */}
-        <div className="mt-10 pt-4 border-t border-white/5 text-center">
-          <p className="text-[11px] text-gray-500 tracking-[0.2em] uppercase">
-            Handcrafted by Umaar • Keep creating, keep inspiring.
+        <div className="mt-10 border-t border-[var(--line)] pt-6 text-center">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--muted-2)]">
+            Handcrafted by {personalData.name} · Keep creating, keep inspiring.
           </p>
         </div>
       </div>

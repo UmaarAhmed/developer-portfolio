@@ -9,23 +9,43 @@ import Projects from "./components/homepage/projects";
 import Skills from "./components/homepage/skills";
 import Certificates from "./components/homepage/Certificates/Certificates";
 
-// 1. Pehle data fetch karne wala function define karein
-async function getData() {
-  const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}`);
+/**
+ * Blogs are fetched with a HARD TIMEOUT and a graceful fallback.
+ *
+ * Why: an unbounded `fetch()` to a third-party API blocks the whole server
+ * render. If dev.to is slow or unreachable the page simply never opens.
+ * `AbortSignal.timeout` guarantees we bail out, and the catch guarantees the
+ * rest of the portfolio still renders even with zero blogs.
+ */
+async function getBlogs() {
+  try {
+    const res = await fetch(
+      `https://dev.to/api/articles?username=${personalData.devUsername}&per_page=6`,
+      {
+        signal: AbortSignal.timeout(4000),
+        next: { revalidate: 3600 }, // cache for 1 hour
+      }
+    );
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
+    if (!res.ok) {
+      console.warn("[blogs] dev.to responded with", res.status);
+      return [];
+    }
+
+    const data = await res.json();
+    if (!Array.isArray(data)) return [];
+
+    return data
+      .filter((item) => item?.cover_image)
+      .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+  } catch (err) {
+    console.warn("[blogs] fetch failed, rendering without blogs:", err?.name);
+    return [];
   }
-
-  const data = await res.json();
-  const filtered = data.filter((item) => item?.cover_image).sort(() => Math.random() - 0.5);
-
-  return filtered;
 }
 
-// 2. Phir Home component define karein
 export default async function Home() {
-  const blogs = await getData();
+  const blogs = await getBlogs();
 
   return (
     <div suppressHydrationWarning>

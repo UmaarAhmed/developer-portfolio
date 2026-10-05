@@ -1,6 +1,17 @@
 export const experiences = [
 {
   id: 1,
+  title: "Founder & CEO",
+  company: "GTSolution360 (Global Technology Solutions)",
+  duration: "(2023 - Present)",
+  description: [
+    "Founded and run a global technology agency delivering web/mobile development and digital marketing to clients across the USA, UK, Europe and the Middle East.",
+    "Built the gtsol360.com platform with an online order flow plus a client dashboard so customers can place and track every service order themselves.",
+    "Lead the delivery team across AI chatbots, automation, custom software and growth marketing engagements."
+  ]
+},
+{
+  id: 2,
   title: "Full-Stack Developer & Team Lead",
   company: "Saad Enterprises",
   duration: "(Jan 2021 - Dec 2023)",
@@ -11,7 +22,7 @@ export const experiences = [
   ]
 },
 {
-  id: 2,
+  id: 3,
   title: "Full-Stack Developer",
   company: "Fiverr (Freelance)",
   duration: "(Jun 2021 - Present)",

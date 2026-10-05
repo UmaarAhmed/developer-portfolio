@@ -3,139 +3,214 @@
 
 import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { useState } from "react";
+import { FaCheckCircle, FaShieldAlt } from "react-icons/fa";
 
 function AboutSection() {
   const [isTapped, setIsTapped] = useState(false);
 
-  return (
-    <div id="about" className="relative my-12 lg:my-24 py-12 overflow-hidden min-h-screen flex items-center">
-      {/* Background Decorative Glow */}
-      <div className="absolute top-[10%] -right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-[#16f2b3] opacity-[0.05] blur-[100px] lg:blur-[150px] pointer-events-none"></div>
-      <div className="absolute bottom-[10%] -left-20 w-[300px] lg:w-[400px] h-[300px] lg:h-[400px] bg-cyan-500 opacity-[0.03] blur-[100px] lg:blur-[120px] pointer-events-none"></div>
+  // Trust badges (same as hero)
+  const trustBadges = [
+    { Icon: FaCheckCircle, label: "Free Consultation" },
+    { Icon: FaShieldAlt, label: "Enterprise Ready" },
+  ];
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-          
+  return (
+    <div
+      id="about"
+      className="relative my-6 overflow-hidden py-8 lg:my-8 lg:py-25"
+    >
+      {/* Background Decorative Glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[-8rem] top-[10%] h-[300px] w-[300px] rounded-full bg-[var(--accent)] opacity-[0.035] blur-[100px] lg:h-[500px] lg:w-[500px] lg:blur-[150px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[10%] left-[-6rem] h-[300px] w-[300px] rounded-full bg-[var(--accent-2)] opacity-[0.03] blur-[100px] lg:h-[400px] lg:w-[400px] lg:blur-[120px]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[92rem] px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col items-center justify-between gap-12 lg:flex-row lg:gap-16">
           {/* IMAGE SECTION */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full lg:w-2/5 flex justify-center lg:justify-end relative order-1 lg:order-2"
+            className="order-1 flex w-full justify-center lg:order-2 lg:w-2/5 lg:justify-end"
           >
-            <div className="relative flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-10">
-              <div 
-                className="relative group cursor-pointer"
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:gap-10">
+              <button
+                type="button"
                 onClick={() => setIsTapped(!isTapped)}
+                aria-label="Toggle profile photo colour"
+                className="group relative cursor-pointer"
               >
-                <div className="absolute inset-0 bg-[#16f2b3] opacity-[0.12] blur-[40px] lg:blur-[50px] rounded-full group-hover:opacity-[0.25] transition-all duration-700"></div>
-                
-                <motion.div 
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-full bg-[var(--accent)] opacity-[0.12] blur-[40px] transition-opacity duration-700 group-hover:opacity-[0.25] lg:blur-[50px]"
+                />
+
+                <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="relative z-10 p-[2px] rounded-[2rem] bg-gradient-to-tr from-[#16f2b3] via-transparent to-[#16f2b3]/30 shadow-2xl"
+                  className="relative z-10 rounded-[2rem] bg-gradient-to-tr from-[var(--accent)] via-transparent to-[var(--accent)]/30 p-[2px] shadow-[var(--shadow-card)]"
                 >
-                  <div className="bg-[#0d1224] rounded-[2rem] overflow-hidden w-[240px] md:w-[280px] lg:w-[320px] aspect-square relative border border-white/10">
+                  <div className="relative aspect-square w-[220px] overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] sm:w-[260px] lg:w-[320px]">
                     <Image
                       src={personalData.profile}
                       fill
-                      alt="Umaar Ahmed"
-                      className={`object-cover transition-all duration-700 ${isTapped ? 'grayscale-0 scale-105' : 'grayscale group-hover:grayscale-0 group-hover:scale-105'}`}
+                      alt={personalData.name}
+                      sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 320px"
+                      className={`object-cover transition-all duration-700 ${
+                        isTapped
+                          ? "scale-105 grayscale-0"
+                          : "grayscale group-hover:scale-105 group-hover:grayscale-0"
+                      }`}
                     />
                   </div>
                 </motion.div>
 
                 {/* Years Exp Tag */}
-                <div className="absolute -bottom-3 -left-3 lg:-bottom-4 lg:-left-4 bg-[#0d1224] border border-[#16f2b3]/30 p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-2xl z-20">
-                  <p className="text-[#16f2b3] font-black text-xl lg:text-3xl leading-none">4+</p>
-                  <p className="text-white text-[7px] lg:text-[8px] font-bold uppercase tracking-widest mt-0.5 lg:mt-1 opacity-80">Years Exp.</p>
+                <div className="absolute -bottom-3 -left-3 z-20 rounded-xl border border-[var(--accent)]/30 bg-[var(--surface)] p-3 shadow-[var(--shadow-card)] lg:-bottom-4 lg:-left-4 lg:rounded-2xl lg:p-4">
+                  <p className="text-xl font-black leading-none text-[var(--accent)] lg:text-3xl">
+                    4+
+                  </p>
+                  <p className="mt-0.5 text-[7px] font-bold uppercase tracking-widest text-[var(--muted)] lg:mt-1 lg:text-[8px]">
+                    Years Exp.
+                  </p>
                 </div>
-              </div>
+              </button>
 
               {/* ABOUT ME Label */}
-              <div className="flex flex-row lg:flex-col items-center lg:pt-6">
-                <div className="bg-gradient-to-r lg:bg-gradient-to-b from-[#14DEA5] to-[#162559] px-6 lg:px-4 py-2 lg:py-8 rounded-full lg:rounded-xl border border-[#16f2b3]/30 shadow-lg">
-                  <p className="text-white font-black uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[10px] lg:text-[15px] lg:[writing-mode:vertical-lr] whitespace-nowrap">
+              <div className="flex flex-row items-center lg:flex-col lg:pt-6">
+                <div className="rounded-full border border-[var(--accent)]/30 bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] px-6 py-2 shadow-lg lg:rounded-xl lg:px-4 lg:py-8">
+                  <p className="whitespace-nowrap text-[10px] font-black uppercase tracking-[0.3em] text-white lg:text-[15px] lg:tracking-[0.4em] lg:[writing-mode:vertical-lr]">
                     ABOUT ME
                   </p>
                 </div>
-                <div className="hidden lg:block w-[3px] h-24 bg-gradient-to-b from-[#16f2b3] via-[#16f2b3]/50 to-transparent mt-2"></div>
+                <div className="mt-2 hidden h-24 w-[3px] bg-gradient-to-b from-[var(--accent)] to-transparent lg:block" />
               </div>
             </div>
           </motion.div>
 
           {/* CONTENT SECTION */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full lg:w-3/5 flex flex-col gap-4 items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
+            className="order-2 flex w-full flex-col items-center gap-4 text-center lg:order-1 lg:w-3/5 lg:items-start lg:text-left"
           >
             {/* Professional Arsenal Tag */}
             <div className="flex items-center gap-2">
-              <div className="h-[1px] w-8 bg-orange-400"></div>
-              <p className="text-white/90 font-bold uppercase tracking-[0.2em] lg:tracking-[0.3em] text-[8px] lg:text-[10px]">
+              <div className="h-px w-8 bg-orange-400" />
+              <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[var(--ink)] lg:text-[10px] lg:tracking-[0.3em]">
                 Professional Arsenal
               </p>
-              <div className="h-[1px] w-8 bg-orange-400 lg:hidden"></div>
+              <div className="h-px w-8 bg-orange-400 lg:hidden" />
             </div>
 
-            {/* Heading - Single Line on Desktop */}
-            <h2 className="flex flex-wrap lg:flex-nowrap items-center justify-center lg:justify-start gap-x-3 text-3xl md:text-5xl lg:text-6xl font-[1000] text-white leading-tight uppercase tracking-[-0.05em] whitespace-nowrap">
-              <span>WHO-</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16f2b3] via-cyan-400 to-emerald-500">
+            {/* Heading */}
+            <h2 className="flex flex-wrap items-center justify-center gap-x-3 text-3xl font-black uppercase leading-tight tracking-[-0.05em] text-[var(--ink)] md:text-5xl lg:justify-start lg:text-6xl">
+              <span className="bg-gradient-to-r from-[var(--ink)] to-[var(--ink-2)] bg-clip-text text-transparent">
+                WHO-
+              </span>
+              <span className="bg-gradient-to-r from-[var(--accent)] via-[var(--accent-2)] to-[var(--accent)] bg-clip-text text-transparent">
                 I-AM?
               </span>
             </h2>
 
-            {/* Description - Padding reduced */}
-            <p className="text-gray-400 text-xs md:text-sm lg:text-base leading-relaxed max-w-xl font-light px-2 lg:px-0">
-              {personalData.description}
-            </p>
+            {/* ── DESCRIPTION — 2 clean paragraphs + real clickable link ── */}
+            <div className="relative mt-2 w-full max-w-2xl px-2 lg:px-0">
+              {/* subtle left accent rule (desktop only) */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-5 top-2 hidden h-[calc(100%-1rem)] w-px bg-gradient-to-b from-[var(--accent)] via-[var(--accent)]/40 to-transparent lg:block"
+              />
 
-            {/* Updated Compact Button with Laptop Border Fix */}
-            <div className="mt-4">
-              <motion.a
+              <div className="space-y-4 text-left">
+                {/* Paragraph 1 — about me */}
+                <p className="text-sm font-normal leading-relaxed text-[var(--body-text)] md:text-[15px] lg:text-[16.5px] lg:leading-[1.75]">
+                  {personalData.description}
+                </p>
+
+                {/* Paragraph 2 — about the agency + clickable link */}
+                <p className="text-sm font-normal leading-relaxed text-[var(--body-text)] md:text-[15px] lg:text-[16.5px] lg:leading-[1.75]">
+                  {personalData.companyDescription}{" "}
+                  <a
+                    href={personalData.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/link inline-flex items-baseline gap-1 font-semibold text-[var(--accent)] decoration-[var(--accent)]/40 decoration-2 underline-offset-4 transition-colors hover:decoration-[var(--accent)] hover:underline"
+                  >
+                    Visit gtsol360.com
+                    <svg
+                      className="h-3.5 w-3.5 translate-y-[1px] transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d="M7 17L17 7M17 7H8M17 7v9" />
+                    </svg>
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            {/* ── TRUST BADGES (View Resume ke upar) ── */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 sm:gap-x-6 lg:justify-start">
+              {trustBadges.map(({ Icon, label }, i) => (
+                <div key={label} className="flex items-center gap-3">
+                  {i > 0 && (
+                    <span
+                      aria-hidden="true"
+                      className="hidden h-6 w-px bg-[var(--line-strong)] sm:block"
+                    />
+                  )}
+                  <div className="flex items-center gap-2.5">
+                    <span className="grid h-7 w-7 place-items-center rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 text-[var(--accent)]">
+                      <Icon size={14} />
+                    </span>
+                    <span className="text-[12.5px] font-semibold tracking-wide text-[var(--body-text)] sm:text-[13.5px]">
+                      {label}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* SINGLE BUTTON → bottom-to-top sheen on hover */}
+            <div className="mt-2">
+              <a
                 href={personalData.resume}
                 target="_blank"
-                whileHover={{ 
-                  y: -3,
-                  scale: 1.02,
-                  boxShadow: "0px 10px 25px rgba(22, 242, 179, 0.2)" 
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="
-                  group relative px-6 lg:px-8 py-3 lg:py-3.5 rounded-full inline-flex items-center gap-3 overflow-hidden transition-all duration-300
-                  /* Mobile: Solid background, No border */
-                  bg-[#16f2b3] text-[#0d1224] border-0
-                  /* Laptop/Desktop: Clear Border and Hover Fill */
-                  lg:bg-transparent lg:text-[#16f2b3] lg:border-2 lg:border-solid lg:border-[#16f2b3]
-                "
+                rel="noopener noreferrer"
+                className="btn-up btn-fill-brand inline-flex items-center gap-3 overflow-hidden rounded-full px-7 py-3.5 font-bold uppercase text-white shadow-[0_12px_28px_-12px_rgba(2,120,87,0.75)] lg:px-9"
               >
-                {/* Desktop Hover Fill Effect */}
-                <div className="hidden lg:block absolute inset-0 w-full h-full bg-[#16f2b3] translate-y-[101%] group-hover:translate-y-[0%] transition-transform duration-400 ease-out z-0"></div>
-
-                {/* Button Text */}
-                <span className="relative z-10 font-bold uppercase text-[10px] lg:text-[12px] tracking-[0.2em] lg:group-hover:text-[#0d1224] transition-colors duration-300">
+                <span className="relative z-[1] text-[10px] tracking-[0.2em] lg:text-[12px]">
                   View Resume
                 </span>
-
-                {/* Arrow Icon */}
-                <svg 
-                  className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 lg:group-hover:text-[#0d1224]" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="relative z-[1] h-4 w-4 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </motion.a>
+              </a>
             </div>
           </motion.div>
-
         </div>
       </div>
     </div>

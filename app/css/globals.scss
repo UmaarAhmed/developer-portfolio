@@ -1,36 +1,203 @@
 @use "tailwindcss";
 
+/* ============================================================
+   THEME SYSTEM
+   Light is the default; <html data-theme="dark"> switches it.
+   `inline` makes Tailwind emit var(--x) instead of copying the
+   value, so every utility re-resolves live when the theme flips.
+   ============================================================ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --foreground-rgb: 211, 216, 232;
+  color-scheme: light;
+
+  /* Surfaces */
+  --body: #f1f5f9;
+  --body-tint: #e2e8f0;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #eef2f7;
+  --input-bg: #ffffff;
+
+  /* Glass / nav */
+  --nav: rgba(255, 255, 255, 0.95);
+  --menu-bg: rgba(255, 255, 255, 0.97);
+
+  /* Lines */
+  --line: rgba(15, 23, 42, 0.1);
+  --line-strong: rgba(15, 23, 42, 0.18);
+
+  /* Text */
+  --ink: #0b1220;
+  --ink-2: #1e293b;
+  --muted: #475569;
+  --muted-2: #64748b;
+
+  /* Shadows */
+  --shadow-soft: 0 18px 40px -18px rgba(15, 23, 42, 0.28);
+  --shadow-card: 0 22px 50px -24px rgba(15, 23, 42, 0.35);
+
+  /* Decoration */
+  --star-alpha: 0;
+  --accent: #0e9f6e;
+  --accent-2: #3b5bdb;
+
+  /* Readable brand ink — AA-contrast accent for outline button labels */
+  --accent-text: #047857;
+  /* Body copy — darker than --muted so paragraphs stay clearly legible */
+  --body-text: #334155;
+
+  /* Buttons — one brand gradient in both themes so white labels always pass AA */
+  --btn-grad: linear-gradient(135deg, #047857 0%, #1d4ed8 100%);
+  --btn-ink: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-  }
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --body: #050816;
+  --body-tint: #0a0f1a;
+  --surface: #0d1224;
+  --surface-2: #101123;
+  --surface-3: #1b203e;
+  --input-bg: #0d1224;
+
+  --nav: rgba(7, 11, 30, 0.94);
+  --menu-bg: rgba(11, 17, 43, 0.95);
+
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  --ink: #ffffff;
+  --ink-2: #d3d8e8;
+  --muted: #9ca3af;
+  --muted-2: #6b7280;
+
+  --shadow-soft: 0 18px 40px -18px rgba(0, 0, 0, 0.75);
+  --shadow-card: 0 22px 50px -24px rgba(0, 0, 0, 0.85);
+
+  --star-alpha: 0.6;
+  --accent: #16f2b3;
+  --accent-2: #4b6fff;
+
+  --accent-text: #16f2b3;
+  --body-text: #cbd5e1;
+
+  --btn-grad: linear-gradient(135deg, #047857 0%, #4338ca 100%);
+  --btn-ink: #ffffff;
+}
+
+@theme inline {
+  --color-body: var(--body);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-input: var(--input-bg);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-menu: var(--menu-bg);
+  --color-accent-text: var(--accent-text);
+  --color-body-text: var(--body-text);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Stops the fixed navbar from covering anchored sections */
+  scroll-padding-top: 6.5rem;
+  background-color: var(--body);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
   position: relative;
   overflow-x: hidden;
-  background:
-    linear-gradient(rgba(5, 8, 20, 0.95), rgba(10, 15, 30, 0.90)),
-    url("/image/bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   min-height: 100vh;
+  color: var(--ink);
+  background-color: var(--body);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
 }
 
-/* ⭐ TWINKLING BLURRY STARS */
+section[id] {
+  scroll-margin-top: 6.5rem;
+}
+
+/* Fixed backdrop layer — deliberately NOT `background-attachment: fixed`,
+   which is a notorious mobile scroll-performance killer. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: -2;
+  /* Soft, neutral wash — the old green/violet blobs tinted every section
+     an unpleasant mint-blue. Toned right down so text stays crisp. */
+  background:
+    radial-gradient(
+      1100px 620px at 12% -8%,
+      color-mix(in oklab, var(--accent) 5%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      900px 560px at 92% 4%,
+      color-mix(in oklab, var(--accent-2) 5%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--body) 0%,
+      var(--body-tint) 55%,
+      var(--body) 100%
+    );
+  transition: background 0.35s ease;
+}
+
+[data-theme="dark"] body::before {
+  background:
+    radial-gradient(
+      1100px 620px at 12% -8%,
+      color-mix(in oklab, #16f2b3 7%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      900px 560px at 92% 4%,
+      color-mix(in oklab, #7000ff 9%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--body-tint) 0%,
+      #070b1e 45%,
+      var(--body-tint) 100%
+    ),
+    url("/image/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ============================================================
+   TWINKLING STARS
+   Opacity-only animation → stays on the compositor (no repaint).
+   ============================================================ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
   z-index: -1;
-  background-image: 
+  pointer-events: none;
+  opacity: var(--star-alpha);
+  background-image:
     radial-gradient(2px 2px at 10% 10%, rgba(255, 255, 255, 0.8), transparent),
     radial-gradient(1.5px 1.5px at 25% 35%, rgba(255, 255, 255, 0.6), transparent),
     radial-gradient(3px 3px at 50% 50%, rgba(255, 255, 255, 0.4), transparent),
@@ -38,68 +205,47 @@ body::before {
     radial-gradient(1.5px 1.5px at 70% 80%, rgba(255, 255, 255, 0.5), transparent),
     radial-gradient(2.5px 2.5px at 30% 85%, rgba(255, 255, 255, 0.6), transparent);
   background-size: 400px 400px;
-  filter: blur(0.7px);
-  animation: twinkle 5s ease-in-out infinite alternate;
-  opacity: 0.6;
+  animation: twinkle 6s ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-  0% { opacity: 0.3; transform: scale(0.98); }
-  100% { opacity: 0.7; transform: scale(1.02); }
+  0% {
+    opacity: calc(var(--star-alpha) * 0.45);
+  }
+  100% {
+    opacity: var(--star-alpha);
+  }
 }
 
-/* 🌠 SHOOTING STARS CONTAINER */
-.shooting-star {
+/* ============================================================
+   SHOOTING STARS
+   ============================================================ */
+.shooting-star,
+.star-extra,
+.star-reverse {
   position: fixed;
-  width: 100px;
+  width: 120px;
   height: 2px;
-  background: linear-gradient(90deg, white, transparent);
   filter: blur(1px);
-  opacity: 0;
   z-index: -1;
+  pointer-events: none;
+  opacity: 0;
 }
 
-/* 1. Top-Left to Bottom-Right */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0%; left: 0%;
-  width: 120px; height: 2px;
-  background: linear-gradient(90deg, white, transparent);
-  filter: blur(1px);
-  box-shadow: 0 0 15px white;
-  z-index: -1;
-  opacity: 0;
-  animation: star1 12s linear infinite;
-  animation-delay: 2s;
-}
-
-/* 2. Top-Right to Bottom-Left */
 .star-extra {
-  content: "";
-  position: fixed;
-  top: 0%; right: 0%;
-  width: 120px; height: 2px;
+  top: 0%;
+  right: 0%;
   background: linear-gradient(-90deg, white, transparent);
-  filter: blur(1px);
   box-shadow: 0 0 15px white;
-  z-index: -1;
-  opacity: 0;
   animation: star2 15s linear infinite;
   animation-delay: 7s;
 }
 
-/* 3. Bottom-Right to Top-Left (Uper janay wala) */
 .star-reverse {
-  content: "";
-  position: fixed;
-  bottom: 0%; right: 0%;
-  width: 120px; height: 2px;
+  bottom: 0%;
+  right: 0%;
   background: linear-gradient(-90deg, white, transparent);
-  filter: blur(1px);
-  box-shadow: 0 0 10px cyan; /* Isko thora different color diya */
-  z-index: -1;
-  opacity: 0;
+  box-shadow: 0 0 10px cyan;
   animation: star3 20s linear infinite;
   animation-delay: 12s;
 }
@@ -125,50 +271,272 @@ body::after {
   100% { transform: translate(-1000px, -800px) rotate(-145deg); opacity: 0; }
 }
 
-/* CURSOR LOGIC */
-@media (min-width: 1024px) {
-  body, a, button, .group, .cursor-pointer {
-    cursor: auto !important;
+/* ============================================================
+   BUTTON HOVER SYSTEM  (premium, theme-safe)
+   .btn-up     → single button  : sheen sweeps BOTTOM ➜ TOP + lift
+   .btn-right  → pair button B  : brand fill sweeps LEFT ➜ RIGHT
+   .btn-zoom   → pair button A  : zoom + lift
+   .btn-fill-* → permanent brand fill (always paired with white label)
+
+   Every fill uses --btn-grad which is authored to keep a WHITE label
+   at AA contrast in BOTH light and dark themes — that was the bug in
+   the old accent→accent-2 fill (accent-coloured label on an accent
+   background = invisible).
+   ============================================================ */
+.btn-up,
+.btn-right,
+.btn-zoom {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* BOTTOM ➜ TOP sheen for the single-button pattern */
+.btn-up::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* LEFT ➜ RIGHT brand fill for the second button of a pair */
+.btn-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: var(--btn-grad);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-up:hover::before,
+.btn-up:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.btn-right:hover::before,
+.btn-right:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.btn-up:hover,
+.btn-up:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -16px rgba(15, 23, 42, 0.55);
+}
+
+.btn-right:hover,
+.btn-right:focus-visible {
+  transform: translateY(-3px);
+  /* label flips to white so it stays readable over the brand fill */
+  color: var(--btn-ink);
+  border-color: transparent !important;
+  box-shadow: 0 16px 32px -16px rgba(15, 23, 42, 0.55);
+}
+
+.btn-zoom:hover,
+.btn-zoom:focus-visible {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 20px 38px -18px rgba(15, 23, 42, 0.6);
+}
+
+.btn-zoom:active,
+.btn-up:active,
+.btn-right:active {
+  transform: scale(0.97);
+}
+
+.btn-up:focus-visible,
+.btn-right:focus-visible,
+.btn-zoom:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Permanent brand fills — white label is guaranteed by --btn-grad */
+.btn-fill-brand,
+.btn-fill-brand-r,
+.btn-fill-brand-lr {
+  background-image: var(--btn-grad);
+  color: var(--btn-ink);
+}
+
+/* Outline restyle: no permanent fill, so the sweep paints the brand
+   gradient instead of a sheen. Used for single outline buttons where
+   the spec is "bottom ➜ top", and for pair buttons that fill L ➜ R. */
+.btn-outline {
+  color: var(--accent-text);
+}
+
+.btn-outline.btn-up::before {
+  background-image: var(--btn-grad);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  color: var(--btn-ink) !important;
+  border-color: transparent !important;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .glass-nav {
+    background-color: var(--nav);
+    border-color: var(--line);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
   }
 }
 
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--muted) 40%, transparent);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--accent) 65%, transparent);
+    background-clip: content-box;
+  }
+}
 
-/* 1. Container Position & Priority */
+/* ============================================================
+   REDUCED MOTION — respect the user's OS setting
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::after,
+  .star-extra,
+  .star-reverse {
+    animation: none !important;
+    opacity: var(--star-alpha);
+  }
+}
+/* ============================================================
+   TOASTIFY (themed)
+   ============================================================ */
 .Toastify__toast-container {
   z-index: 999999 !important;
   padding: 12px !important;
 }
 
-/* 2. Premium Dialog Box (Toast) Design */
 .Toastify__toast {
-  background: rgba(15, 23, 42, 0.9) !important; /* Semi-transparent Dark Slate */
-  backdrop-filter: blur(12px) !important; /* Glass effect */
-  color: #f8fafc !important;
+  background: var(--surface) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: var(--ink) !important;
   border-radius: 16px !important;
-  border: 1px solid rgba(0, 242, 254, 0.3) !important; /* Light Cyan Border */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 242, 254, 0.05) !important;
-  font-family: 'Inter', sans-serif !important;
+  border: 1px solid var(--line-strong) !important;
+  box-shadow: var(--shadow-card) !important;
+  font-family: inherit !important;
   padding: 16px !important;
 }
 
-/* 3. Success Toast Specific Glow */
 .Toastify__toast--success {
-  border: 1px solid rgba(22, 242, 179, 0.5) !important; /* Mint Cyan border for success */
+  border: 1px solid rgba(22, 242, 179, 0.5) !important;
 }
 
-/* 4. Icon aur Progress Bar ko chamkayen */
 .Toastify__toast-icon {
   width: 22px !important;
 }
 
 .Toastify__progress-bar {
   height: 4px !important;
-  background: linear-gradient(to right, #00f2fe, #16f2b3) !important; /* Gradient Progress */
+  background: linear-gradient(to right, #00f2fe, #16f2b3) !important;
   border-radius: 0 0 0 16px !important;
 }
 
-/* 5. Close Button color */
 .Toastify__close-button {
-  color: #94a3b8 !important;
+  color: var(--muted) !important;
   opacity: 1 !important;
+}
+
+/* ============================================================
+   THEME TOGGLE
+   ============================================================ */
+.theme-toggle-icon {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.theme-toggle:hover .theme-toggle-icon,
+.theme-toggle:focus-visible .theme-toggle-icon {
+  transform: rotate(360deg) scale(1.1);
+}
+/* ============================================================
+   CUSTOM CURSOR TRAIL
+   Plain DOM nodes written to directly from CustomCursor.js,
+   so the pointer never triggers a React render.
+   ============================================================ */
+.cursor-trail-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.9) 0%,
+    rgba(34, 211, 238, 0.7) 45%,
+    rgba(168, 85, 247, 0.5) 100%
+  );
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
+  /* translate3d positions the dot; this transform must win over the JS one,
+     so the centring offsets live in `margin` instead */
+  margin: -6px 0 0 -6px;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Print → always fall back to the light palette */
+@media print {
+  body::before,
+  body::after,
+  .star-extra,
+  .star-reverse {
+    display: none !important;
+  }
 }

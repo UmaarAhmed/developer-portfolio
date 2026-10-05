@@ -1,0 +1,29 @@
+OK       app/layout.js
+OK       app/page.js
+OK       app/blog/page.js
+OK       app/components/Brand.jsx
+OK       app/components/ThemeProvider.jsx
+OK       app/components/ThemeToggle.jsx
+OK       app/components/navbar.jsx
+OK       app/components/footer.jsx
+OK       app/components/VisitorCounter.jsx
+OK       app/components/FloatingButtons.jsx
+OK       app/components/Chatbot.jsx
+OK       app/components/helper/CustomCursor.js
+OK       app/components/helper/glow-card.jsx
+OK       app/components/helper/animation-lottie.jsx
+OK       app/components/homepage/hero-section/index.jsx
+OK       app/components/homepage/about/index.jsx
+OK       app/components/homepage/skills/index.jsx
+OK       app/components/homepage/experience/index.jsx
+OK       app/components/homepage/education/index.jsx
+OK       app/components/homepage/projects/index.jsx
+OK       app/components/homepage/projects/project-card.jsx
+OK       app/components/homepage/Certificates/Certificates.jsx
+OK       app/components/homepage/blog/index.jsx
+OK       app/components/homepage/blog/blog-card.jsx
+OK       app/components/homepage/contact/index.jsx
+OK       app/components/homepage/contact/contact-form.jsx
+OK       next.config.js
+
+ALL FILES PARSE CLEANLY

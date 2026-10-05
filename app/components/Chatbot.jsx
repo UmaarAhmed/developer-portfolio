@@ -1,11 +1,86 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Bot, Send, X, Zap } from "lucide-react";
+import { personalData } from "@/utils/data/personal-data";
+import { experiences } from "@/utils/data/experience";
+
+/* ============================================================
+   OFFLINE KNOWLEDGE BASE
+   The assistant must ALWAYS answer. If /api/chat is down, slow or
+   misconfigured we fall back to this local index so questions about
+   Umaar still get a real reply instead of a dead-end error bubble.
+   ============================================================ */
+const KB = [
+  {
+    keys: ["who is umaar", "who r u", "who are you", "about umaar", "introduce", "about you", "tum kon", "ap kon", "who's umaar"],
+    reply:
+      "**Umaar Ahmed** is a Full-Stack Developer and the **Founder & CEO of GTSolution360** (https://www.gtsol360.com/). He builds high-performance web apps, mobile apps and scalable APIs, and runs a global agency delivering development + digital marketing.",
+  },
+  {
+    keys: ["gtsol", "gtsolution", "gt sol", "agency", "company", "your company", "ceo", "owner", "business", "order", "services"],
+    reply:
+      `Umaar is the **Founder & CEO of ${personalData.company}** → ${personalData.companyUrl}\n\nClients can order any service online:\n${personalData.companyServices.map((s) => `- ${s}`).join("\n")}\n\nAfter ordering, every order is tracked from the **client dashboard**.`,
+  },
+  {
+    keys: ["skill", "stack", "technology", "tech", "technology stack", "kya use", "tools"],
+    reply:
+      "**Core stack:** Next.js, React, TypeScript, Node.js, Express, Tailwind, MongoDB, PostgreSQL, Firebase, Git.\n\n**AI/Infra:** Groq & OpenAI APIs, RAG, vector DBs, agentic workflows, REST API design, CI/CD.",
+  },
+  {
+    keys: ["experience", "work", "job", "career", "kaam", "kis company"],
+    reply:
+      experiences
+        .map((e) => `- **${e.title}** — ${e.company} ${e.duration}`)
+        .join("\n"),
+  },
+  {
+    keys: ["project", "portfolio", "built", "ka kya banaya"],
+    reply:
+      "**Notable projects:** SmartMatrix AI, NeuralVision PRO, an API-driven E-Commerce platform and an AI Financial App — plus the gtsol360.com ordering platform.",
+  },
+  {
+    keys: ["education", "degree", "study", "university", "qualification", "parhai"],
+    reply: "**BSCS** — Iqra University (2022 – Present). College: SIPS (2019 – 2021).",
+  },
+  {
+    keys: ["contact", "email", "phone", "reach", "hire", "freelance", "available", "call", "whatsapp"],
+    reply: `You can reach Umaar directly:\n\n- **Email:** ${personalData.email}\n- **Phone:** ${personalData.phone}\n- **LinkedIn:** ${personalData.linkedIn}\n- **GitHub:** ${personalData.github}\n\nHe is open to freelance and remote work.`,
+  },
+  {
+    keys: ["resume", "cv"],
+    reply: `[Open Umaar's resume](${personalData.resume})`,
+  },
+  {
+    keys: ["hello", "hi", "hey", "salam", "assalam", "yo"],
+    reply: "Hey! I'm Umaar's digital twin. Ask me about his **skills**, **experience**, **projects** or his agency **GTSolution360**.",
+  },
+];
+
+/** Returns a local answer when possible, otherwise null. */
+function localAnswer(message = "") {
+  const q = message.toLowerCase().trim();
+  if (!q) return null;
+  for (const entry of KB) {
+    if (entry.keys.some((k) => q.includes(k))) return entry.reply;
+  }
+  return null;
+}
+
+/** Hard timeout — the bot can never hang on a stalled request. */
+async function fetchWithTimeout(url, options = {}, ms = 15000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 export default function Chatbot({ onClose }) {
   const [messages, setMessages] = useState([]);
@@ -21,34 +96,46 @@ export default function Chatbot({ onClose }) {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessage = async () => {
-    if (!input.trim() || loading) return;
+  const pushAssistant = useCallback((content) => {
+    setMessages((prev) => [...prev, { role: "assistant", content }]);
+  }, []);
 
+  const sendMessage = async () => {
     const userMessage = input.trim();
+    if (!userMessage || loading) return;
+
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      });
+      const res = await fetchWithTimeout(
+        "/api/chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage }),
+        },
+        15000
+      );
 
-      const data = await res.json();
-      if (!res.ok || data.error) throw new Error(data.error || "Bot not responding");
+      const data = await res.json().catch(() => ({}));
 
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      if (res.ok && data.reply) {
+        pushAssistant(data.reply);
+      } else {
+        // API failed → answer straight from the local knowledge base
+        pushAssistant(
+          localAnswer(userMessage) ||
+            `### 🔌 Assistant is offline\n\nI couldn't reach the AI service right now, but here's what I can still help with:\n\n- **Who is Umaar?**\n- **His skills & experience**\n- **GTSolution360 services & how to order**\n- **Contact details**\n\nOr reach him directly on [LinkedIn](${personalData.linkedIn}).`
+        );
+      }
     } catch (err) {
       console.error("AI Bot Error:", err);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: `### ⚡ System Override! \n\nMy apologies! My connection to **Umaar's digital brain** is recalibrating. \n\n👉 **[Message Umaar on LinkedIn](https://www.linkedin.com/in/umaar-ahmed-a3b252266/)**`,
-        },
-      ]);
+      pushAssistant(
+        localAnswer(userMessage) ||
+          `### ⚡ Slow connection\n\nI couldn't complete that request, but I'm still here. Try asking about **Umaar's skills**, **experience** or **GTSolution360** — or [message him on LinkedIn](${personalData.linkedIn}).`
+      );
     } finally {
       setLoading(false);
     }

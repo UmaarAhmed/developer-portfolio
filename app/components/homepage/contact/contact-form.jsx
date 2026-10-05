@@ -46,11 +46,11 @@ function ContactForm() {
   return (
     <div className="w-full">
       {/* Professional Title with Underline Glow */}
-      <div className="mb-8 relative w-fit">
-        <p className="font-bold text-white text-2xl uppercase tracking-widest">
-          Contact <span className="text-[#16f2b3]">With Me</span>
+      <div className="mb-8 relative w-fit mx-auto lg:mx-0">
+        <p className="text-2xl font-bold uppercase tracking-widest text-[var(--ink)]">
+          Contact <span className="text-[var(--accent-text)]">With Me</span>
         </p>
-        <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-[#16f2b3] rounded-full shadow-[0_0_10px_#16f2b3]"></span>
+        <span className="absolute -bottom-2 left-0 h-1 w-1/2 rounded-full bg-[var(--accent)]"></span>
       </div>
 
       {/* Premium Glowing Card */}
@@ -58,16 +58,16 @@ function ContactForm() {
         {/* Card Background Glow Effect */}
         <div className="absolute -inset-0.5 bg-gradient-to-r from-[#16f2b3]/20 to-transparent rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
         
-        <div className="relative text-white rounded-2xl border border-[#353a52] bg-[#111827] p-6 lg:p-10 shadow-2xl">
-          <p className="text-sm md:text-base text-[#d3d8e8] leading-relaxed mb-8 border-l-4 border-[#16f2b3] pl-4 italic">
+        <div className="relative rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 text-[var(--ink)] shadow-[var(--shadow-card)] lg:p-10">
+          <p className="mb-8 border-l-4 border-[var(--accent)] pl-4 text-sm italic leading-relaxed text-[var(--ink-2)] md:text-base">
             {"If you have any questions or concerns, please don't hesitate to contact me. I am open to any work opportunities that align with my skills and interests."}
           </p>
 
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold text-gray-300">Your Name</label>
+              <label className="text-sm font-semibold text-[var(--muted)]">Your Name</label>
               <input
-                className="bg-[#0d1224] w-full border rounded-xl border-[#353a52] focus:border-[#16f2b3] focus:shadow-[0_0_15px_rgba(22,242,179,0.1)] ring-0 outline-0 transition-all duration-300 px-4 py-3 text-gray-200"
+                className="w-full rounded-xl border border-[var(--line-strong)] bg-[var(--input)] px-4 py-3 text-[var(--ink)] outline-0 ring-0 transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_15px_color-mix(in_oklab,var(--accent)_20%,transparent)]"
                 type="text"
                 maxLength="100"
                 required={true}
@@ -79,10 +79,10 @@ function ContactForm() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold text-gray-300">Your Email</label>
+              <label className="text-sm font-semibold text-[var(--muted)]">Your Email</label>
               <input
-                className={`bg-[#0d1224] w-full border rounded-xl transition-all duration-300 px-4 py-3 text-gray-200 ring-0 outline-0 ${
-                  error.email ? 'border-red-500' : 'border-[#353a52] focus:border-[#16f2b3]'
+                className={`w-full rounded-xl border bg-[var(--input)] px-4 py-3 text-[var(--ink)] outline-0 ring-0 transition-all duration-300 ${
+                  error.email ? 'border-red-500' : ''
                 }`}
                 type="email"
                 maxLength="100"
@@ -99,9 +99,9 @@ function ContactForm() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold text-gray-300">Your Message</label>
+              <label className="text-sm font-semibold text-[var(--muted)]">Your Message</label>
               <textarea
-                className="bg-[#0d1224] w-full border rounded-xl border-[#353a52] focus:border-[#16f2b3] focus:shadow-[0_0_15px_rgba(22,242,179,0.1)] ring-0 outline-0 transition-all duration-300 px-4 py-3 text-gray-200"
+                className="w-full rounded-xl border border-[var(--line-strong)] bg-[var(--input)] px-4 py-3 text-[var(--ink)] outline-0 ring-0 transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_15px_color-mix(in_oklab,var(--accent)_20%,transparent)]"
                 maxLength="500"
                 name="message"
                 required={true}
@@ -119,19 +119,16 @@ function ContactForm() {
               )}
               
               <button
-                className="flex items-center gap-2 hover:gap-4 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 px-8 md:px-14 py-3 md:py-4 text-center text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(219,39,119,0.5)] active:scale-95 disabled:opacity-50"
+                type="button"
+                className="btn-up btn-fill-brand inline-flex items-center gap-2 rounded-full px-8 py-3 text-center text-sm font-bold uppercase tracking-widest text-white shadow-[0_12px_28px_-12px_rgba(2,120,87,0.75)] md:px-14 md:py-4 disabled:cursor-not-allowed disabled:opacity-50"
                 role="button"
                 onClick={handleSendMail}
                 disabled={isLoading}
               >
-                {isLoading ? (
-                  <span>Sending...</span>
-                ) : (
-                  <>
-                    Send Message
-                    <TbMailForward size={22} />
-                  </>
-                )}
+                <span className="relative z-[1]">
+                  {isLoading ? "Sending..." : "Send Message"}
+                </span>
+                {!isLoading && <TbMailForward size={22} className="relative z-[1]" />}
               </button>
             </div>
           </div>

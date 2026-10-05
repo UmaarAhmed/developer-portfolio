@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",       // <- required for @ alias
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./*"]
     }

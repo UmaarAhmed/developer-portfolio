@@ -1,0 +1,43 @@
+
+> developer-portfolio@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+▲ Next.js 16.1.3 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · optimizePackageImports
+
+  Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+✓ Compiled successfully in 32.6s
+  Running TypeScript ...
+  Collecting page data using 3 workers ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+  Generating static pages using 3 workers (0/9) ...
+  Generating static pages using 3 workers (2/9) 
+  Generating static pages using 3 workers (4/9) 
+  Generating static pages using 3 workers (6/9) 
+✓ Generating static pages using 3 workers (9/9) in 2.5s
+  Finalizing page optimization ...
+
+Route (app)       Revalidate  Expire
+┌ ○ /                     1h      1y
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/contact
+├ ƒ /api/data
+├ ƒ /api/google
+└ ○ /blog                 1h      1y
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+FINISHED_MARKER  

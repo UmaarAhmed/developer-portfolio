@@ -4,44 +4,52 @@ import { FaArrowRight } from 'react-icons/fa';
 import BlogCard from './blog-card';
 
 function Blog({ blogs }) {
+  const posts = (blogs || []).filter((b) => b?.cover_image).slice(0, 6);
 
   return (
-    <div id='blogs' className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
-      <div className="w-[100px] h-[100px] bg-violet-100 rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl  opacity-20"></div>
+    <div
+      id="blogs"
+      className="relative z-50 my-16 border-t border-[var(--line)]"
+    >
+      <div className="pointer-events-none absolute left-1/2 top-6 h-[100px] w-[100px] -translate-x-1/2 rounded-full bg-violet-400 opacity-20 blur-3xl" />
 
-      <div className="flex justify-center -translate-y-[1px]">
+      <div className="flex -translate-y-px justify-center">
         <div className="w-3/4">
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-violet-500 to-transparent  w-full" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
         </div>
       </div>
 
-      <div className="flex justify-center my-5 lg:py-8">
-        <div className="flex  items-center">
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-          <span className="bg-[#1a1443] w-fit text-white p-2 px-5 text-xl rounded-md">
+      <div className="my-5 flex justify-center lg:py-8">
+        <div className="flex items-center">
+          <span className="h-[2px] w-16 bg-gradient-to-r from-transparent to-[var(--accent)] sm:w-24" />
+          <span className="w-fit rounded-lg border border-[var(--line-strong)] bg-[var(--surface)] px-5 py-2 text-xl font-bold text-[var(--ink)] shadow-[var(--shadow-card)]">
             Blogs
           </span>
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
+          <span className="h-[2px] w-16 bg-gradient-to-l from-transparent to-[var(--accent)] sm:w-24" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:gap-8 xl:gap-10">
-        {
-          blogs.slice(0, 6).map((blog, i) => (
-            blog?.cover_image &&
-            <BlogCard blog={blog} key={i} />
-          ))
-        }
-      </div>
+      {posts.length === 0 ? (
+        <p className="py-16 text-center text-[var(--muted)]">
+          No posts available right now. Please check back soon.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-5 md:grid-cols-3 lg:gap-8 xl:gap-10">
+          {posts.map((blog, i) => (
+            <BlogCard blog={blog} key={blog.id ?? i} />
+          ))}
+        </div>
+      )}
 
-      <div className="flex justify-center  mt-5 lg:mt-12">
+      <div className="mt-5 flex justify-center lg:mt-12">
+        {/* SINGLE BUTTON → bottom-to-top brand fill on hover */}
         <Link
-          className="flex items-center gap-1 hover:gap-3 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 px-3 md:px-8 py-3 md:py-4 text-center text-xs md:text-sm font-medium uppercase tracking-wider text-white no-underline transition-all duration-200 ease-out hover:text-white hover:no-underline md:font-semibold"
+          className="btn-up btn-outline inline-flex items-center gap-2 rounded-full border-2 border-[var(--accent-text)] px-6 py-3 text-center text-xs font-bold uppercase tracking-wider text-[var(--accent-text)] no-underline md:px-8 md:py-3.5 md:text-sm"
           role="button"
           href="/blog"
         >
-          <span>View More</span>
-          <FaArrowRight size={16} />
+          <span className="relative z-[1]">View More</span>
+          <FaArrowRight size={16} className="relative z-[1]" />
         </Link>
       </div>
     </div>
