@@ -7,8 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "update-browserslist-db@latest"
+    "lint": "next lint"
   },
   "browserslist": [
     "> 0.5%",
