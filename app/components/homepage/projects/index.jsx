@@ -67,12 +67,6 @@ const Projects = () => {
                 <div className="absolute inset-x-0 bottom-0 h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
               </div>
 
-              {/* Numbering Decor - Visible only on Desktop */}
-              <div className="absolute -left-10 top-8 hidden xl:block">
-                <span className="select-none text-5xl font-black italic text-[var(--ink)] opacity-10">
-                  0{index + 1}
-                </span>
-              </div>
             </motion.div>
           </div>
         ))}

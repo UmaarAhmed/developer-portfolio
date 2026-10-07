@@ -20,6 +20,7 @@ function ContactForm() {
     }
   };
 
+  // 👇 YAHAN HAI WO UPDATED FUNCTION 👇
   const handleSendMail = async (e) => {
     e.preventDefault();
     if (!userInput.email || !userInput.message || !userInput.name) {
@@ -33,9 +34,16 @@ function ContactForm() {
 
     try {
       setIsLoading(true);
-      await axios.post("/api/contact", userInput);
-      toast.success("Message sent successfully!");
-      setUserInput({ name: "", email: "", message: "" });
+      // Backend ka response store karein
+      const response = await axios.post("/api/contact", userInput);
+      
+      // Check karein ki backend ne success true bheja hai ya false
+      if (response.data.success) {
+        toast.success(response.data.message || "Message sent successfully!");
+        setUserInput({ name: "", email: "", message: "" });
+      } else {
+        toast.error(response.data.message || "Failed to send message");
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to send message");
     } finally {

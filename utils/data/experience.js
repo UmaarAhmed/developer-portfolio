@@ -1,7 +1,7 @@
 export const experiences = [
 {
   id: 1,
-  title: "Founder & CEO",
+  title: "AI & Full Stack Developer",
   company: "GTSolution360 (Global Technology Solutions)",
   duration: "(2023 - Present)",
   description: [

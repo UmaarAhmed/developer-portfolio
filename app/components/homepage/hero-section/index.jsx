@@ -321,7 +321,7 @@ function HeroSection() {
                   <div className="ml-4">
                     <span className="text-[var(--ink)]">role:</span>{" "}
                     <span className="text-amber-600 dark:text-amber-300">
-                      &apos;CEO · {personalData.companyShort}&apos;,
+                      &apos;AI & Full Stack Developer · {personalData.companyShort}&apos;,
                     </span>
                   </div>
 

@@ -2,6 +2,7 @@
 import { personalData } from '@/utils/data/personal-data';
 import Link from 'next/link';
 import { BiLogoLinkedin } from "react-icons/bi";
+import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import { SiDevdotto } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
@@ -69,8 +70,15 @@ function ContactSection() {
             rel="noopener noreferrer"
             className="btn-zoom group mt-8 flex items-center gap-3 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-4 shadow-[var(--shadow-soft)] transition-colors duration-300 hover:border-[var(--accent)] lg:mt-10"
           >
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] text-base font-black text-white">
-              GT
+            <span className="relative grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-[var(--line)] bg-white p-1.5 shadow-sm">
+              <Image
+                src="/logo-gtsol.png"
+                alt={`${personalData.companyShort} logo`}
+                width={56}
+                height={56}
+                className="h-full w-full object-contain"
+                priority={false}
+              />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-sm font-bold text-[var(--ink)]">

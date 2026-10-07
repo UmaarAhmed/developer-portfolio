@@ -2,7 +2,7 @@ export const educations = [
   {
     id: 1,
     title: "Bachelor Degree (BSCS)",
-    duration: "2022 - Present",
+    duration: "2022 - 2026",
     institution: "IQRA UNIVERSITY",
   },
   {
